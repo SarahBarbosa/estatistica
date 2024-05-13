@@ -1,0 +1,90 @@
+\chapter*{Resolução dos Problemas}
+\addcontentsline{toc}{chapter}{Resolução dos Problemas}
+
+\section*{Capítulo 1}
+\addcontentsline{toc}{section}{Capítulo 1}
+
+\begin{enumerate}[label=\textbf{1.\arabic*.}]
+\item \label{r1.1} Considere o lançamento de quatro moedas iguais em sequência, onde $\text{Cara}$ é representada por $\text{C}$ e $\text{Coroa}$ por $\text{K}$. O espaço amostral para esse experimento é:
+\begin{align*}
+	\Omega &= \{\text{CCCC}, \text{CCCK}, \text{CCKC}, \text{CKCC}, \text{KCCC}, \text{CCKK}, \text{CKCK}, \text{KCKC}, \\ 
+	&\qquad\text{CKKC}, \text{KKCC}, \text{KCCK}, \text{KKKC}, \text{KKCK}, \text{KCKK}, \text{CKKK}, \text{KKKK}\}.
+\end{align*}
+Assumindo que as moedas são imparciais, cada evento tem a mesma probabilidade de $\sfrac{1}{16}$. A probabilidade de obter duas caras e duas coroas, ou seja, os eventos $\{ \text{CCKK}, \text{CKCK}, \text{KCKC}, \text{CKKC}, \text{KKCC}, \text{KCCK}\}$ é $\sfrac{6}{16} = \sfrac{3}{8}$.
+
+\item Considere os eventos:
+\begin{align*}
+	A = \{ \text{primeiro lançamento mostra número ímpar} \}, \quad \text{e} \quad
+	B = \{ \text{soma dos dois dados é 9} \}.
+\end{align*}
+O evento $A$ ocorre nos resultados $1, 3,$ e $5$ (como cada evento tem uma probabilidade $\sfrac{1}{6}$), assim $P(A) = \sfrac{1}{2}$. Para calcular $P(B)$, os pares que somam 9 são $(3,6), (4,5), (5,4),$ e $(6,3)$, portanto $P(B) = \sfrac{4}{36} = \sfrac{1}{9}$. A probabilidade da união de $A$ e $B$ deve excluir a interseção deles para evitar duplicações, que são os lançamentos $(3,6)$ e $(5,4)$, onde $P(A \cap B) = \sfrac{1}{8}$. Portanto, considerando o terceiro axioma de Kolmogorov generalizado (\autoref{1.5}), temos que a probabilidade do primeiro lançamento mostra um número ímpar ou a soma dos dois dados é 9 é
+\begin{equation*}
+P(A \cup B) = P(A) + P(B) - P(A \cap B) = \dfrac{1}{2} + \dfrac{1}{9} - \dfrac{1}{18} = \dfrac{5}{18}.
+\end{equation*}
+
+\item Considere os eventos:
+\begin{align*}
+	A = \{ \text{obter número par} \}, \quad \text{e} \quad
+	B = \{ \text{obter número maior que 4} \}.
+\end{align*}
+O evento $A$ ocorre nos resultados $2, 4,$ e $6$, assim $P(A) = \sfrac{3}{6}  = \sfrac{1}{2}$. Para calcular $P(B)$, os resultados maiores que 4 são $5$ e $6$, portanto $P(B) = \sfrac{2}{6} = \sfrac{1}{3}$. A interseção de $A$ e $B$ ocorre apenas em $6$, assim $P(A \cap B) = \sfrac{1}{6}$. Assim, pelo terceiro axioma de Kolmogorov generalizado (\autoref{1.5}), temos:
+\begin{equation*}
+P(A \cup B) = P(A) + P(B) - P(A \cap B) = \dfrac{1}{2} + \dfrac{1}{3} - \dfrac{1}{6} = \dfrac{2}{3}.
+\end{equation*}
+
+\item Considere os eventos:
+\begin{align*}
+	A = \{ \text{soma dos dois lançamentos é 8} \}, \quad \text{e} \quad
+	B = \{ \text{o primeiro lançamento mostra 5} \}.
+\end{align*}
+O evento $A$ ocorre para as seguintes combinações de resultados: $(2,6), (3,5), (4,4), (5,3), (6,2)$ e portanto $P(A) = \sfrac{5}{36}$. O evento $B$ tem uma probabilidade $P(B) = \sfrac{1}{6}$. O evento $A \cap B$ tem probabilidade $P(A \cap B) = \sfrac{1}{36}$ (situação em que ambos os eventos ocorrem, no caso, quando ocorrer o resultado $(5,3)$). Como
+\begin{equation*}
+P(A) \cdot P(B) = \dfrac{5}{36} \cdot \dfrac{1}{6} = \dfrac{5}{1296} \neq P(A \cap B) = \dfrac{1}{36},
+\end{equation*}
+os dois eventos não são estatisticamente independentes.
+
+\item Considere os seguintes eventos:
+\begin{align*}
+	A = \{ \text{o primeiro lançamento é par} \}, \quad \text{e} \quad
+	B = \{ \text{o segundo lançamento é par} \}.
+\end{align*}
+O evento $A$ ocorre para $2,4,6$ (bem como o evento $B$) e portanto $P(A) = \sfrac{3}{6} = \sfrac{1}{2}$ (analogamente, $P(B) = \sfrac{1}{2}$). O evento $A \cap B$, que ocorre para as seguintes combinações de resultados: $(2,2), (2,4), (2,6), (4,2), (4,4), (4,6), (6,6), (6,2), (6,4)$, tem probabilidade $P(A \cap B) = \sfrac{9}{36} = \sfrac{1}{4}$. Como
+\begin{equation*}
+	P(A) \cdot P(B) = \dfrac{1}{2} \cdot \dfrac{1}{2} = \dfrac{1}{4} = P(A \cap B) = \dfrac{1}{4},
+\end{equation*}
+os dois eventos são estatisticamente independentes.
+
+\item A probabilidade de retirar uma bola vermelha é $p = \sfrac{3}{5}$, já que 3 das 5 bolas são vermelhas. (a) Os sorteios consecutivos são independentes e, portanto, a probabilidade de duas bolas vermelhas consecutivas é $p = \sfrac{3}{5} \cdot \sfrac{3}{5} = \sfrac{9}{25}$, já que os sorteios são feitos com reposição. (b) A condição de que o primeiro sorteio foi uma bola vermelha é irrelevante para o resultado do segundo sorteio, e portanto a probabilidade é apenas $p = \sfrac{3}{5}$. A solução também pode ser obtida usando a definição de probabilidade condicional (\autoref{1.6}) e a definição de independência estatística (\autoref{1.8}),
+\begin{equation*}
+P(B|A) = \dfrac{P(A \cap B)}{P(A)} = \dfrac{P(A)\cdot P(B)}{P(A)} = P(B) = \dfrac{3}{5}
+\end{equation*}
+onde $A$ é o evento de uma bola vermelha no primeiro sorteio e $B$ é o evento de uma bola vermelha no segundo sorteio.
+
+\item A probabilidade do dado der $1$ (evento $A$) é $P(A) = \sfrac{1}{6}$, e a probabilidade da soma ser $5$ (evento $B$) é $P(B) = \sfrac{4}{36}$, já que as sequências que resultam em uma soma de $5$ são apenas quatro: $(2,3), (3,2), (4,1), (1,4)$. (a) A probabilidade de $A$ dado $B$ é,
+\begin{equation*}
+P(A|B) = \dfrac{P(A \cap B)}{P(B)} = \dfrac{\sfrac{1}{36}}{\sfrac{4}{36}} = \dfrac{1}{4},
+\end{equation*}
+já que $P(A \cap B) = \sfrac{1}{36}$ representa a probabilidade da única combinação $(1, 4)$ ocorrer. (b) A probabilidade de $B$ dado $A$ é,
+\begin{equation*}
+	P(B|A) = \dfrac{P(B \cap A)}{P(A)} = \dfrac{\sfrac{1}{36}}{\sfrac{1}{6}} = \dfrac{1}{6},
+\end{equation*}
+(c) A probabilidade do primeiro lançamento ser $1$ e a soma ser $5$ é simplesmente,
+\begin{equation*}
+P(A \cap B) = P(A|B)\cdot P(B) = \dfrac{1}{4} \times \dfrac{4}{36} = \dfrac{1}{36}.
+\end{equation*}
+(d) Usando a \autoref{1.11}, podemos mostrar que,
+\begin{equation*}
+P(A | B) = \dfrac{P(B | A)P(A)}{P(B)} = \dfrac{\sfrac{1}{6} \times \sfrac{1}{6}}{\sfrac{4}{36}} = \dfrac{1}{4}.
+\end{equation*}
+o teorema de Bayes é verificado.
+
+\item (a) Uma sequência específica tem uma probabilidade de $P(A) = (\sfrac{1}{2})^4 = \sfrac{1}{16}$, já que os quatro lançamentos são independentes, e cada um tem uma probabilidade de \sfrac{1}{2} de cara. (b) Precisamos contar o número de sequências que têm 2 moedas caindo cara (evento $B$). Usando o resultado do Problema \ref{r1.1}, vemos que existem 6 dessas sequências, e portanto a probabilidade é $P(B) = \sfrac{6}{16} = \sfrac{3}{8}$ por contagem direta. O evento $B$ inclui $A$, portanto a probabilidade da interseção é $P(A \cap B) = \sfrac{1}{16}$. A probabilidade de uma sequência cara-coroa-cara-coroa dado que duas moedas caíram com a face para cima é
+\begin{equation*}
+P(A|B) = \dfrac{P(A \cap B)}{P(B)} = \dfrac{\sfrac{1}{16}}{\sfrac{3}{8}} = \dfrac{1}{6}
+\end{equation*}
+(c) Para isso, podemos usar o teorema de Bayes (\autoref{1.11}), 
+\begin{equation*}
+P(B | A) = \dfrac{P(A | B)P(B)}{P(A)} = \dfrac{\sfrac{1}{6}\times\sfrac{3}{8}}{\sfrac{1}{16}} = 1. 
+\end{equation*}
+O conhecimento da sequência cara-coroa-cara-coroa de fato implica a certeza de que 2 moedas caíram cara.
+\end{enumerate}

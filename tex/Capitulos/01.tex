@@ -1,0 +1,257 @@
+\chapter{Teoria da Probabilidade}\label{cap:1-1}
+
+\section{Experimentos e Eventos}
+
+Todo experimento tem uma série de resultados possíveis. Por exemplo, o experimento consistindo no lançamento de um dado pode ter seis resultados possíveis, de acordo com o número que aparece após o dado cair. Atribuir probabilidades aos resultados possíveis é uma das principais tarefas da teoria da probabilidade. A seção seguinte apresenta dois métodos para atribuir probabilidades, o método clássico baseado na repetição do experimento e um método baseado no conhecimento empírico do experimento. O fato de haver mais de um método disponível para este propósito não deve ser visto como uma limitação da teoria, mas sim como o fato de que para certas partes da teoria da probabilidade, e ainda mais para a estatística, há um elemento de subjetividade que entra na análise e na interpretação dos resultados. Portanto, é tarefa do estatístico acompanhar quaisquer suposições feitas na análise e levá-las em consideração na interpretação dos resultados. Antes de descrever os métodos para atribuir probabilidades, é necessário desenvolver a terminologia necessária para descrever experimentos e seus resultados.
+
+O \textbf{espaço amostral} $\Omega$ é definido como o conjunto de todos os resultados possíveis do experimento. No caso do lançamento de um dado, o espaço amostral pode ser escrito como o conjunto dos seis possíveis resultados, $\Omega = \{1, 2, 3, 4, 5, 6\}$. Um \textbf{evento} $A$ é um subconjunto de $\Omega$, $A \subset \Omega$, e representa uma série de resultados possíveis para o experimento. Por exemplo, o evento ``número par'' pode ser representado por $A = \{2, 4, 6\}$, e o evento ``número ímpar'' como $B = \{1, 3, 5\}$. Diferentes experimentos terão espaços amostrais diferentes que podem ser escritos de maneira equivalente. Para cada experimento, sempre existem dois eventos: o próprio espaço amostral que compreende todos os resultados possíveis e o conjunto vazio que não contém resultados, representado como $A = \emptyset$ e chamado de \textbf{evento impossível}. 
+
+Eventos são convenientemente estudados usando a teoria elementar dos conjuntos. É útil revisar algumas das propriedades da teoria dos conjuntos que são comumente usadas em probabilidade e estatística. O complementar de um evento $A$ é indicado como $A^\complement$, e é o conjunto de todos os resultados possíveis exceto aqueles em $A$. Por exemplo, o complemento do evento ``número ímpar'' é o evento ``número par''. 
+
+Dados dois eventos $A$ e $B$, a união $C = A \cup B$ é o evento que compreende todos os resultados de $A$ e os de $B$. No lançamento de um dado, a união de números ímpares e pares é o próprio espaço amostral, consistindo de todos os resultados possíveis. A interseção de dois eventos $C = A \cap B$ é o evento que compreende todos os resultados de $A$ que também são resultados de $B$. Quando dois eventos não se sobrepõem, $A \cap B = \emptyset$, os eventos são ditos \textbf{mutuamente exclusivos}. A união e a interseção podem ser naturalmente estendidas para mais de dois eventos. Os eventos são ilustrados na \autoref{fig:1-1}.
+
+\begin{SCfigure}[\sidecaptionrelwidth][ht!]
+	\centering
+	\import{./Figuras/}{1-1.tex}
+	\caption{Os eventos podem ser representados como subconjuntos do espaço amostral. A probabilidade do evento $P(A \cup B)$ é a soma das duas probabilidades individuais, apenas se os dois eventos forem mutuamente exclusivos. Esta propriedade permite a interpretação da probabilidade como a ``área'' de um determinado evento dentro do espaço amostral.}
+	\label{fig:1-1}
+\end{SCfigure}
+
+Finalmente, um número de eventos $A_i$, para $i = 1, ..., n$, são ditos uma \textbf{partição} do espaço amostral se satisfizerem as seguintes duas propriedades:
+\begin{equation}\label{1.1}
+\begin{cases}
+	A_i \cap A_j = \emptyset, \text{quando} \ i \neq j \\
+	\bigcup_{i=1}^{n} A_i = \Omega.
+\end{cases}
+\end{equation}
+Por exemplo, os resultados 1, 2, 3, 4, 5 e 6 para o lançamento de um dado dividem o espaço amostral em uma série de eventos que cobrem todos os resultados possíveis, sem qualquer sobreposição entre eles.
+
+\section{Probabilidade de Eventos}
+
+A probabilidade $P$ de um evento é um número que tem como objetivo descrever as chances de ocorrência de um evento em um único ensaio do experimento. A teoria moderna da probabilidade foi desenvolvida ao longo da primeira metade do século XX com a contribuição de diversos matemáticos, incluindo \citet{bernshtein1917} e \citet{kolmogorov1950foundations}. Todas essas contribuições levaram a um arcabouço que considera a probabilidade como um número entre 0 e 1, onde $P = 0$ corresponde a um evento impossível, e $P = 1$ a um evento certo. Portanto, a operação de ``probabilidade'' pode ser pensada como uma função que transforma cada evento possível em um número real entre 0 e 1.
+
+\subsection{Axiomas de Kolmogorov}
+
+O primeiro passo para determinar a probabilidade de um evento é estabelecer um número de regras básicas que capturem o significado da probabilidade. A probabilidade de um evento precisa satisfazer três axiomas definidos por \citet{kolmogorov1950foundations}\footnote{Em seu livro, \citet{kolmogorov1950foundations} lista um número maior de axiomas devido à necessidade de garantir certas propriedades matemáticas da probabilidade.}:
+\begin{enumerate}[noitemsep]
+\item A probabilidade de um evento $A$ é um número não negativo, $P(A) \geq 0$;
+\item A probabilidade de todos os resultados possíveis, ou espaço amostral, é normalizada para o valor de unidade, $P(\Omega) = 1$;
+\item Se $A$ e $B$ são dois eventos mutuamente exclusivos, então
+\begin{equation}
+P(A \cup B) = P(A) + P(B).
+\end{equation}
+\end{enumerate}
+A \autoref{fig:1-1} ilustra a última propriedade usando diagramas de Venn. Os eventos no painel esquerdo são mutuamente exclusivos, e a probabilidade da união é representada pela área de $A \cup B$, ou a soma das duas áreas individuais. Para eventos que não são mutuamente exclusivos, como aqueles no painel direito, essa propriedade não se aplica.
+
+Esses axiomas devem ser considerados as ``regras básicas'' da teoria da probabilidade, mas não fornecem orientação sobre como atribuir probabilidades aos eventos. Para este fim, existem duas principais abordagens disponíveis. Uma é baseada na repetição dos experimentos um grande número de vezes sob as mesmas condições, e é conhecida como método frequentista ou clássico. A outra é baseada em um conhecimento mais teórico do experimento, mas sem a exigência experimental de um grande número de repetições, e é chamada de método Bayesiano ou empírico.
+
+\subsection{Método Frequentista ou Clássico}
+
+Considere a realização de um experimento um grande número $N$ de vezes, sob as mesmas condições experimentais. A ocorrência do evento $A$ é indicada como o número $N(A)$. A probabilidade do evento $A$ é dada por
+\begin{equation}
+P(A) = \lim_{N \to \infty} \dfrac{N(A)}{N}
+\end{equation}
+ou seja, a probabilidade é a frequência relativa de ocorrência de um evento dado a partir de muitas repetições do mesmo experimento. A limitação óbvia dessa definição é a necessidade de realizar o experimento um grande número de vezes. Este requisito não apenas consome tempo, mas também exige que o experimento seja repetível em primeiro lugar, o que pode ou não ser possível. A limitação deste método é evidente ao considerar um lançamento de moeda: não importa o número de lançamentos, a ocorrência de ``cara para cima'' nunca será exatamente 50\%, o que seria esperado com base em um conhecimento empírico do experimento em questão.
+
+\subsection{Método Bayesiano ou Empírico}
+
+Outro método para atribuir probabilidades é usar o conhecimento do experimento, tanto teórico quanto experimental, mas sem a necessidade de dados experimentais extensivos. A probabilidade atribuída a um evento representa o \textbf{grau de crença} de que o evento ocorrerá em uma tentativa específica do experimento, e implica um elemento de subjetividade que se tornará mais evidente com o teorema de Bayes. Às vezes, é referida como \textbf{probabilidade empírica}, em reconhecimento ao fato de que, às vezes, a probabilidade de um evento é atribuída com base em um conhecimento prático do experimento, embora sem a exigência clássica de repetir o experimento um grande número de vezes. Esse método é nomeado em homenagem ao Reverendo Thomas Bayes, que pioneiramente desenvolveu a teoria da probabilidade \citep{bayes1763lii}.
+
+\begin{exemplo}{}{}
+No experimento de lançamento de uma moeda, a determinação da probabilidade empírica para os eventos ``Cara para cima'' ou ``Coroa para cima'' depende do conhecimento de que a moeda é imparcial, e que portanto deve ser verdade que $P(\text{Cara}) = P(\text{Cora})$. Essa afirmação empírica significa o uso do método Bayesiano para determinar probabilidades. Com essa informação, podemos então simplesmente usar os axiomas de Kolmogorov para afirmar que $P(\text{Cara}) + P(\text{Cora}) = 1$, e portanto obter o resultado intuitivo de que $P(\text{Cara}) = P(\text{Cora}) = \sfrac{1}{2}$.
+\end{exemplo}
+
+\subsection{Propriedades Fundamentais da Probabilidade}
+
+As seguintes propriedades são úteis para atribuir e manipular probabilidades de eventos. Elas são um tanto intuitivas, mas mesmo assim é instrutivo derivá-las dos axiomas de Kolmogorov.
+
+\begin{enumerate}[noitemsep]
+\item A probabilidade do evento nulo é zero, $P(\varnothing) = 0$.
+
+Esta propriedade pode ser derivada começando com os eventos mutuamente exclusivos $\varnothing$ e $\Omega$. Uma vez que a união deles é $\Omega$, segue do terceiro axioma que $P(\Omega) = P(\Omega) + P(\varnothing)$. A partir do segundo axioma, sabe-se que $P(\Omega) = 1$, e com isso, conclui-se que $P(\varnothing) = 0$. A seguinte propriedade é uma generalização desta.
+
+\item A probabilidade do evento complementar $A^\complement$ satisfaz a propriedade 
+\begin{equation}
+P(A^\complement) = 1 - P(A).
+\end{equation}
+Por definição, é verdade que $A \cup A^\complement = \Omega$, e que $A$ e $A^\complement$ são mutuamente exclusivos. Usando os segundo e terceiro axiomas, $P(A \cup A^\complement) = P(A) + P(A^\complement) = 1$, a partir do qual segue que $P(A^\complement) = 1 - P(A)$.
+
+\item A probabilidade da união de dois eventos satisfaz a propriedade geral
+\begin{equation}\label{1.5}
+P(A \cup B) = P(A) + P(B) - P(A \cap B).
+\end{equation}
+Esta propriedade generaliza o terceiro axioma de Kolmogorov e pode ser interpretada como o fato de que os resultados na região de sobreposição dos dois eventos devem ser contados apenas uma vez, como ilustrado na \autoref{fig:1-1}. Primeiramente, perceba que o evento $A \cup B$ pode ser escrito como a união de três conjuntos mutuamente exclusivos,
+\begin{equation*}
+ A \cup B = (A \cap B^\complement) \cup (B \cap A^\complement) \cup (A \cap B),
+\end{equation*}
+veja a \autoref{fig:1-1}. Portanto, usando o terceiro axioma,
+\begin{equation*}
+ P(A \cup B) = P(A \cap B^\complement) + P(B \cap A^\complement) + P(A \cap B).
+\end{equation*}
+Em seguida, observe que para qualquer evento $A$ ou $B$, é verdade que $A = (A \cap B^\complement) \cup (A \cap B)$, já que $\{B, B^\complement\}$ é uma partição de $\Omega$. Isso implica que $P(A) = P(A \cap B) + P(A \cap B^\complement)$ devido ao fato de que os dois conjuntos são novamente mutuamente exclusivos, com uma equação similar para o evento  $B$. Assim, segue-se que,
+\begin{equation*}
+P(A \cup B) = P(A) - P(A \cap B) + P(B) - P(B \cap A) + P(A \cap B) = P(A) + P(B) - P(A \cap B),
+\end{equation*}
+o que prova a propriedade.
+\end{enumerate}
+
+\begin{exemplo}{}{}
+Um experimento consiste em sortear um número entre 1 e 100 ao acaso. O evento de interesse $C$ é ``sortear um número maior que 50 ou um número ímpar, em uma tentativa específica''. O espaço amostral para este experimento é o conjunto de números $i = 1, \ldots, 100$, e a probabilidade de sortear o número $i$ é $P(A_i) = \sfrac{1}{100}$, já que cada número tem a mesma probabilidade de ser sorteado. Seja $A$ o evento consistindo de todos os números maiores que 50 e $B$ o evento com todos os números ímpares, é claro que $P(A) = 0.5$ e $P(B) = 0.5$. Os dois eventos se sobrepõem, e o evento $A \cap B$ contém todos os números ímpares maiores que 50, com $P(A \cap B) = 0.25$. Usando a \autoref{1.5}, a probabilidade de sortear um número maior que 50 ou um número ímpar é
+\begin{equation*}
+	P(C) = P(A \cup B) = P(A) + P(B) - P(A \cap B) = 0.5 + 0.5 - 0.25 = 0.25.
+\end{equation*}
+\end{exemplo}
+
+\section{Probabilidade Condicional}
+
+A \textbf{probabilidade condicional} descreve a ocorrência de um evento $A$, sabendo que outro evento $B$ também ocorreu. O condicionamento desempenha um papel proeminente na probabilidade e na estatística, pois a probabilidade de um evento pode depender de outro evento que se sabe ter ocorrido. A probabilidade condicional é indicada como  $P(A|B)$ ou ``$A$ \textit{dado} $B$''. A seguinte relação define a probabilidade condicional:
+\begin{equation}\label{1.6}
+P(A \cap B) = P(A | B) \cdot P(B), 
+\end{equation}
+E pode ser expresso de forma equivalente como:
+\begin{equation}
+P(A|B) = \begin{cases} \dfrac{P(A \cap B)}{P(B)}, & \text{se } P(B) \neq 0 \\ 0, & \text{se } P(B) = 0 \end{cases}  
+\end{equation}
+Uma justificativa para essa definição é que a ocorrência de $B$ significa que a probabilidade de ocorrência de $A$ é proporcional à probabilidade de ocorrência de $A \cap B$. Além disso, o denominador da probabilidade condicional é $P(B)$, em vez da unidade, porque $B$ é o conjunto de todos os possíveis resultados que se sabe terem acontecido. A situação também é ilustrada no painel direito da \autoref{fig:1-1}.
+
+\begin{exemplo}{}{}
+Vamos calcular a probabilidade de obter 8 como a soma de dois lançamentos de um dado, dado que o primeiro lançamento foi um 3. Para isso, é útil definir os seguintes dois eventos:
+\begin{align*}
+	A &= \{ \text{A soma de dois lançamentos é 8} \}, \\
+	B &= \{ \text{O primeiro lançamento mostra 3} \}.
+\end{align*}
+O evento $A$ é dado pelos resultados $(2,6), (3,5), (4,4), (5,3), (6,2)$, e como cada combinação tem uma probabilidade de $\sfrac{1}{36}$, $P(A) = \sfrac{5}{36}$. A probabilidade do evento $B$ é $P(B) = \sfrac{1}{6}$ já que se relaciona aos resultados de apenas um lançamento do dado. Além disso, o evento $A \cap B$ ocorre se o primeiro lançamento for um 3 e a soma for 8, o que claramente só pode ocorrer se uma sequência de $(3,5)$ acontecer, assim com probabilidade $P(A \cap B) = \sfrac{1}{36}$. De acordo com a definição de probabilidade condicional, a probabilidade de interesse é 
+\begin{equation*}
+	P(A|B) = \dfrac{P(A \cap B)}{P(B)} = \dfrac{\sfrac{1}{36}}{\sfrac{1}{6}} = \frac{1}{6},
+\end{equation*}
+e na verdade apenas a combinação $(5,3)$ resulta em uma soma de 8. A ocorrência de 3 no primeiro lançamento aumentou portanto a probabilidade de $A$ de $P(A) = \sfrac{5}{36}$ para $P(A|B) = \sfrac{1}{6}$, já que nem todos os resultados do primeiro lançamento seriam igualmente propícios a uma soma de 8 em dois lançamentos. 
+\end{exemplo}
+
+\section{Independência Estatística}
+
+O conceito de \textbf{independência estatística} entre eventos significa que a ocorrência de um evento não tem influência sobre a ocorrência de outros eventos. Considere, por exemplo, o lançamento de dois dados, um após o outro: o resultado de um dado é independente do outro e os dois lançamentos são ditos estatisticamente independentes. Por outro lado, considere o lançamento de dois dados e que haja interesse no seguinte par de eventos: o primeiro é o resultado do lançamento do dado 1 e o segundo é a soma dos lançamentos dos dados 1 e 2. É claro que o resultado do segundo evento depende do primeiro lançamento e os dois eventos não são independentes.
+
+Dois eventos $A$ e $B$ são ditos estatisticamente independentes se
+\begin{equation}\label{1.8}
+P(A \cap B) = P(A) \cdot P(B).
+\end{equation}
+Essa definição segue diretamente da \autoref{1.6}. De fato, se $A$ e $B$ forem estatisticamente independentes, então a probabilidade condicional é $P(A|B) = P(A)$, ou seja, a ocorrência de $B$ não tem influência sobre a ocorrência de $A$. Portanto, a \autoref{1.8} é uma simples consequência da \autoref{1.6} quando os dois eventos são independentes. Alguns exemplos ilustram o significado dessa definição.
+
+\begin{exemplo}{}{}
+Vamos determinar a probabilidade de obter dois $3$s ao lançar dois dados. Esse evento pode ser decomposto em dois eventos:
+\begin{align*}
+	A &= \{ \text{o dado 1 mostra 3, e o dado 2 mostra qualquer número} \}, \\
+	B &= \{ \text{o dado 2 mostra 3, e o dado 1 mostra qualquer número} \}.
+\end{align*}
+É natural assumir que $P(A) = \sfrac{1}{6}$, $P(B) = \sfrac{1}{6}$, e afirmar que os dois eventos $A$ e $B$ são independentes por natureza, já que cada evento envolve um dado diferente, que não tem conhecimento do resultado do outro; o mesmo seria verdade também se o mesmo dado fosse lançado duas vezes. O evento de interesse é $C = A \cap B$, e a definição de probabilidade de dois eventos estatisticamente independentes leva a
+\begin{align*}
+	P(C) = P(A \cap B) = P(A) \cdot P(B) = \dfrac{1}{36}.
+\end{align*}
+Há apenas uma combinação em 36 que resulta em dois 3 consecutivos.
+\end{exemplo}
+
+O exemplo acima destaca a importância de uma definição adequada, e às vezes estendida, de um evento. Quanto mais cuidadosa for a descrição do evento e do experimento do qual ele é derivado, mais fácil será fazer cálculos probabilísticos e a avaliação da independência estatística.
+
+\begin{exemplo}{}{}
+Vamos determinar se os seguintes eventos são estatisticamente independentes entre si:
+\begin{align*}
+	A &= \{ \text{o dado 1 mostra 3 e o dado 2 mostra qualquer número} \},  \\
+	B &=  \{ \text{a soma dos dois dados é 9} \}.
+\end{align*}
+O procedimento é calcular a probabilidade dos dois eventos e, em seguida, verificar se eles obedecem ou não à \autoref{1.8} Este cálculo ilustrará que os dois eventos não são estatisticamente independentes.
+
+O evento $A$ tem uma probabilidade $P(A) = \sfrac{1}{6}$; para calcular a probabilidade do evento $B$, perceba que uma soma de 9 é dada pelas seguintes combinações de resultados dos dois lançamentos: $(3,6), (4,5), (5,4)$ e $(6,3)$, e portanto $P(B) = \sfrac{4}{36} = \sfrac{1}{9}$. O evento $A \cap B$ é a situação em que ambos os eventos $A$ e $B$ ocorrem, o que corresponde à única combinação $(3,6)$; portanto, $P(A \cap B) = \sfrac{1}{36}$. Como
+\begin{align*}
+	P(A) \cdot P(B) = \dfrac{1}{6} \cdot \dfrac{1}{9} = \frac{1}{54} \neq P(A \cap B) = \dfrac{1}{36},
+\end{align*}
+os dois eventos não são estatisticamente independentes. Essa conclusão significa que um evento influencia o outro, já que um 3 no primeiro lançamento certamente influencia a possibilidade de ambos os lançamentos terem um total de 9. 
+\end{exemplo}
+
+Existem duas condições necessárias (mas não suficientes) importantes para a independência estatística entre dois eventos. Essas propriedades podem ajudar a identificar se dois eventos são independentes.
+
+\begin{enumerate}[noitemsep]
+\item Se $A \cap B = \varnothing$, $A$ e $B$ não podem ser independentes, a menos que um deles seja o conjunto vazio. Esta propriedade afirma que deve haver alguma sobreposição entre os dois eventos, caso contrário, não é possível que os eventos sejam independentes. Para $A$ e $B$ serem independentes, deve ser verdade que $P(A \cap B) = P(A) \cdot P(B)$, o que é zero por hipótese. Isso só pode ser verdade se $P(A) = 0$ ou $P(B) = 0$, o que por sua vez significa que $A = \varnothing$ ou $B = \varnothing$ como consequência dos axiomas de Kolmogorov.
+
+\item Se $A \subset B$, então $A$ e $B$ não podem ser independentes, a menos que $B$ seja o espaço amostral inteiro. Esta propriedade afirma que a sobreposição entre dois eventos não pode ser tal que um evento esteja incluído no outro, para que a independência estatística seja possível. Para $A$ e $B$ serem independentes, $P(A \cap B) = P(A) \cdot P(B) = P(A)$, dado que $A \subset B$. Isso só pode ser verdade se $B = \Omega$, já que $P(\Omega) = 1$.
+\end{enumerate}
+
+\begin{exemplo}{}{}
+Considere os seguintes dois eventos:
+\begin{align*}
+	A &= \{ \text{o dado 1 mostra 3 e o dado 2 mostra qualquer número} \},  \\
+	B &=  \{ \text{o dado 1 mostra 3 ou 2 e o dado 2 mostra qualquer número} \}.
+\end{align*}
+É claro que $A \subset B$, $P(A) = \sfrac{1}{6}$ e $P(B) = \sfrac{2}{6} = \sfrac{1}{3}$. O evento $A \cap B$ é assim idêntico a $A$ e $P(A \cap B) = \sfrac{1}{6}$. Portanto, $P(A \cap B) \neq P(A) \cdot P(B)$ e os dois eventos não são estatisticamente independentes. Este resultado pode ser facilmente explicado pelo fato de que a ocorrência de $A$ implica a ocorrência de $B$, o que é uma forte afirmação de dependência entre os dois eventos. A dependência entre os dois eventos também pode ser vista pelo fato de que a não ocorrência de $B$ implica a não ocorrência de $A$. 
+\end{exemplo}
+
+\section{Teorema da Probabilidade Total e Teorema de Bayes}
+
+Esta seção descreve dois teoremas que são de grande importância em várias situações práticas.
+\begin{itemize}[noitemsep]
+\item \textbf{Teorema da Probabilidade Total}. Dado um evento $B$ e um conjunto de eventos  $A_i$ que formam uma partição de acordo com as propriedades \eqref{1.1}, temos que
+\begin{equation}\label{1.9}
+P(B) = \sum_{i=1}^{n} P(B \cap A_i) = \sum_{i=1}^{n} P(B|A_i) \cdot P(A_i).
+\end{equation}
+\end{itemize}
+A primeira equação é verificada imediatamente dado que os $B \cap A_i$ são eventos mutuamente exclusivos tal que $B = \cup_i (B \cap A_i)$. A segunda equação deriva da aplicação da definição de probabilidade condicional.
+
+O teorema da probabilidade total é útil quando a probabilidade de um evento B não pode ser facilmente calculada e é mais fácil calcular as probabilidades condicionais $P(B|A_i)$.
+
+\begin{exemplo}{}{}
+Considere o evento $B$ consistindo em obter uma soma de 8 em dois lançamentos consecutivos de um dado. Cada lançamento pode ser dividido em 6 eventos $A_i$ representando o dado mostrando $i$, com $P(A_i) = \sfrac{1}{6}$. É claro que $P(B|A_i) = \sfrac{1}{6}$ apenas para $i = 2, \ldots, 6$ e nulo para $i = 1$, já que não há chance de uma soma de 8 se o primeiro lançamento for um 1. Segue-se que a soma no teorema da probabilidade total leva a:
+\begin{equation*}
+P(B) = \sum_{i=2}^{n} P(B|A_i) \cdot P(A_i) = \left(5 \times \frac{1}{6}\right) \times \frac{1}{6} = \frac{5}{36}
+\end{equation*}
+\end{exemplo}
+
+\begin{itemize}[noitemsep]
+	\item \textbf{Teorema de Bayes}. Dado um evento $B$ e um conjunto de eventos  $A_i$ que formam uma partição de acordo com as propriedades \eqref{1.1}, temos que
+\begin{equation}
+P(A_i | B) = \dfrac{P(B | A_i) P(A_i)}{P(B)} =  \dfrac{P(B | A_i)P(A_i)}{\sum_{i=1}^{n} P(B \cap A_i)}
+\end{equation}
+\end{itemize}
+A prova é uma consequência imediata da definição de probabilidade condicional, \autoref{1.6}, e do teorema da probabilidade total, \autoref{1.9}.
+
+O teorema de Bayes é frequentemente escrito em uma forma mais simples ao considerar apenas dois eventos, $A_i = A$ e $B$. Nesta situação simplificada, o teorema pode ser escrito como:
+\begin{equation}\label{1.11}
+P(A | B) = \dfrac{P(B | A)P(A)}{P(B)}.
+\end{equation}
+Nesta forma, o teorema de Bayes é apenas uma afirmação de como a ordem de condicionamento entre dois eventos pode ser invertida. T. Bayes apresentou a primeira formulação deste teorema em sua publicação ``\textit{An Essay towards solving a Problem in the Doctrine of Chances}'' \citep{bayes1763lii}. Bayes estava especificamente interessado no problema de estimar a probabilidade desconhecida $p$ de um experimento binário que resultou em $x$ sucessos e $n - x$ falhas. A \autoref{1.11} pode ser usada para abordar este problema com a seguinte interpretação dos eventos. O experimento $B$ pode ser considerado como os dados coletados em um dado experimento; para o problema de Bayes, foi o fato de $x$ dos $n$ experimentos terem sido um sucesso. O evento $A$ é um modelo que é usado para descrever os dados, no caso de Bayes, a probabilidade desconhecida $p$. De acordo, as probabilidades envolvidas no teorema de Bayes podem ser interpretadas da seguinte forma:
+\begin{enumerate}[noitemsep]
+\item $P(B | A)$ é a probabilidade, ou \textbf{verossimilhança} $\mathcal{L}$, dos dados dado o modelo especificado. Para o problema de Bayes, esta é a probabilidade de ter $x$ sucessos, se $p$ fosse conhecido. Observe como $P(B | A)$ significa que o modelo $A$ é dado, ou conhecido.
+
+\item $P(A)$ é a probabilidade do modelo $A$, sem nenhum conhecimento dos dados. Este termo é interpretado como uma \textbf{probabilidade a priori}, ou o grau de crença de que o modelo é verdadeiro antes das medidas serem feitas. Para Bayes, esta é a probabilidade de que um valor específico de $p$ seja o correto, antes dos dados experimentais ($x$ sucessos em $n$ experimentos) serem coletados. As probabilidades a priori devem ser baseadas no conhecimento quantitativo do experimento, mas também podem refletir a crença subjetiva do analista. Este passo na interpretação do teorema de Bayes explicitamente introduz um elemento de subjetividade que é característico da estatística Bayesiana.
+
+\item $P(B)$ é a probabilidade de coletar o conjunto de dados $B$. Na prática, essa probabilidade atua como uma constante de normalização e seu valor numérico geralmente não tem consequência prática.
+
+\item Finalmente, $P(A | B)$ é a \textbf{probabilidade a posteriori} do modelo após os dados terem sido coletados. A probabilidade a posteriori é o objetivo final da análise, pois descreve a probabilidade do modelo com base na coleta de dados. Para Bayes, esta era a estimativa buscada de $p$ com base nos dados disponíveis.
+\end{enumerate}
+
+Esta interpretação do teorema de Bayes é a base da estatística Bayesiana, e pode ser resumida como
+\begin{center}
+Probabilidade a posteriori $\propto$ Verossimilhança $\times$ Probabilidade a priori.
+\end{center}
+
+O teorema de Bayes fornece uma maneira de atualizar o conhecimento a priori dos parâmetros do modelo dados as medidas, levando a estimativas a posteriori dos parâmetros. Uma característica chave da estatística Bayesiana é que o cálculo das probabilidades é baseado em uma probabilidade que pode depender de uma interpretação subjetiva do que é conhecido sobre o experimento antes de quaisquer medições serem feitas. Portanto, deve-se prestar muita atenção à atribuição de probabilidades a priori e ao efeito das posteriori nos resultados finais da análise. A Teoria da Probabilidade de \citet{jeffreys1998theory} é uma referência chave para a estatística Bayesiana e a importância das probabilidades a priori.
+
+\section{Problemas}
+
+
+\begin{enumerate}[label=\textbf{\arabic{chapter}.\arabic*.}]
+\item No lançamento simultâneo de quatro moedas, descreva o espaço amostral e atribua a probabilidade de obter duas caras e duas coroas. Não há distinção entre as moedas.
+
+\item Ao lançar simultaneamente dois dados independentes, determine a probabilidade de obter um número ímpar no primeiro lançamento ou uma soma total de 9 nos dois lançamentos.
+
+\item Para um dado lançado, encontre a probabilidade de obter um número par ou maior que 4.
+
+\item Ao lançar dois dados independentes, demonstre a não independência estatística entre ``soma dos dois lançamentos é 8'' e ``o primeiro lançamento mostra 5''.
+
+\item No lançamento de dois dados independentes, mostre a independência estatística entre ``o primeiro lançamento é par'' e ''o segundo lançamento é par''.`
+
+\item Em uma caixa com 5 bolas, 3 vermelhas e 2 azuis, calcule (a) a probabilidade de retirar duas bolas vermelhas consecutivas e (b) a probabilidade de retirar duas bolas vermelhas consecutivas, sabendo que o primeiro sorteio foi uma bola vermelha. Assuma que após cada sorteio a bola é substituída na caixa.
+
+\item  Lançando simultaneamente dois dados independentes, calcule (a) a probabilidade do primeiro lançamento ser 1, dado que a soma dos lançamentos foi 5, (b) a probabilidade da soma ser 5, dado que o primeiro lançamento foi 1 e (c) a probabilidade do primeiro lançamento ser 1 e a soma ser 5. Finalmente, (d) confirme com o teorema de Bayes.
+
+\item Quatro moedas numeradas de 1 a 4 são lançadas simultaneamente e independentemente. Calcule (a) a probabilidade de obter a sequência ordenada cara–coroa–cara–coroa, (b) a probabilidade dessa sequência sabendo que duas moedas mostram cara e (c) a probabilidade de duas moedas mostrarem cara, sabendo que ocorreu a sequência cara–coroa–cara–coroa.
+\end{enumerate}
+
