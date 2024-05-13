@@ -1,2 +1,5 @@
-# estudo-estatistica
-Notas de aula sobre estatística e análise de dados científicos
+# Estatística e Análise de Dados Científicos
+
+Esse repositório contém apenas algumas notas que venho "brincando" nas horas vagas.
+
+> Projeto em construção 🚧
