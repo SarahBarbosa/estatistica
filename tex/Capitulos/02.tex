@@ -75,7 +75,7 @@ Os momentos de uma distribuição são quantidades teóricas que podem ser calcu
 \subsection{A Média e a Média Amostral}
 
 O momento de primeira ordem também é conhecido como \textbf{média} ou expectância da variável aleatória,
-\begin{equation}
+\begin{equation}\label{2.7}
 	\mu = \mathbb{E}[X] = \int_{-\infty}^{\infty} x f(x)\, dx.
 \end{equation}
 A média $\mu$ é um número característico que representa um valor médio de $X$, obtido ponderando todos os valores possíveis da variável por sua função de distribuição. Portanto, a média é uma medida muito simples e conveniente da variável aleatória.
@@ -111,7 +111,7 @@ Essa expressão afirma que um grande número de medidas das variáveis $X_i$ pod
 \subsection{A Variância e a Variância Amostral}
 
 A \textbf{variância} é a expectância do quadrado da diferença entre $X$ e sua média,
-\begin{equation}
+\begin{equation}\label{2.11}
 \text{Var}(X) = \mathbb{E}[(X - \mu)^2] = \int_{-\infty}^{+\infty} (x - \mu)^2 f(x)\,dx
 \end{equation}
 e geralmente é indicada como $\text{Var}(X) = \sigma^2$. A raiz quadrada da variância é referida como o \textbf{desvio padrão} $\sigma$, e é uma medida comum da diferença média de uma determinada medida $x_i$ da média da variável aleatória.
@@ -127,7 +127,7 @@ Usando a propriedade linear da expectância, é simples mostrar que a seguinte p
 \text{Var}(X) = \mathbb{E}[(X - \mu)^2] = \mathbb{E}[X^2 - 2X\mu + \mu^2] = \mathbb{E}[X^2] - 2\mu^2 + \mu^2 = \mathbb{E}[X^2] - \mu^2.
 \end{equation}
 Essa relação é muito conveniente para calcular a variância a partir dos momentos de primeira e segunda ordem. Outra propriedade útil da variância, que decorre do fato de que a variância é um momento de segunda ordem, é
-\begin{equation}
+\begin{equation}\label{2.13}
 \text{Var}(aX) = a^2 \cdot \text{Var}(X),
 \end{equation}
 onde $a$ é uma constante. O desvio e a variância são momentos calculados em relação à média, e são referidos como \textbf{momentos centrais}.

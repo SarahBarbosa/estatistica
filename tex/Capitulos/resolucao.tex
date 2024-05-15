@@ -88,3 +88,39 @@ P(B | A) = \dfrac{P(A | B)P(B)}{P(A)} = \dfrac{\sfrac{1}{6}\times\sfrac{3}{8}}{\
 \end{equation*}
 O conhecimento da sequência cara-coroa-cara-coroa de fato implica a certeza de que 2 moedas caíram cara.
 \end{enumerate}
+
+
+\section*{Capítulo 2}
+\addcontentsline{toc}{section}{Capítulo 2}
+
+\begin{enumerate}[label=\textbf{2.\arabic*.}]
+	\item Para mostrar que a distribuição exponencial é devidamente normalizada, façamos:
+	\begin{equation*}
+	\int_0^{\infty} f(x)\, dx = \lambda \int_0^{\infty} e^{-\lambda x}\,dx = \lambda \left(-\dfrac{1}{\lambda}e^{-\lambda x}\right)_0^{\infty} = 1.
+	\end{equation*}
+	A média $\mu$ pode ser calculada usando a \autoref{2.7}:
+	\begin{equation*}
+		\mu = \int_{0}^{\infty} x f(x)\, dx = \lambda \int_{0}^{\infty} x e^{-\lambda x}\,dx = \lambda\left(-\dfrac{1}{\lambda}xe^{-\lambda x}\bigg|_{0}^{\infty} + \dfrac{1}{\lambda}\int_{0}^{\infty}e^{-\lambda x}\,dx\right) = \dfrac{1}{\lambda}
+	\end{equation*}
+	A variância $\sigma^2$ pode ser calculada usando a \autoref{2.12}:
+	\begin{equation*}
+	\sigma^2 = \mathbb{E}[x^2] - \mu^2 = \lambda\int_{0}^{\infty} x^2 e^{-\lambda x}\, dx - \left(\dfrac{1}{\lambda}\right)^2 = \lambda\left(-\dfrac{1}{\lambda}x^2e^{-\lambda x}\bigg|_{0}^{\infty} + \dfrac{2}{\lambda} \int_{0}^{\infty} xe^{-\lambda x}\,dx\right) - \left(\dfrac{1}{\lambda}\right)^2 = \dfrac{1}{\lambda^2}.
+	\end{equation*}
+	
+	\item A variância da média amostral $\overline{x}$ pode ser calculada da seguinte maneira:
+	\begin{equation*}
+	\text{Var}(\overline{x}) = \text{Var}\left(\dfrac{1}{N} \sum_{i=1}^{N} x_i\right).
+	\end{equation*}
+	Usando a propriedade fornecida na \autoref{2.13}, ou seja, $\text{Var}(aX) = a^2 \cdot \text{Var}(X)$, temos,
+	\begin{equation*}
+		\text{Var}(\overline{x}) = \left(\dfrac{1}{N}\right)^2\text{Var}\left(\sum_{i=1}^{N} x_i\right).
+	\end{equation*}
+	Considerando o fato de que $\text{Var}(x + y) = \text{Var}(x) +  \text{Var}(y)$, , podemos reescrever a expressão anterior como:
+	\begin{equation*}
+		\text{Var}(\overline{x}) = \left(\dfrac{1}{N}\right)^2\left(\sum_{i=1}^{N} \text{Var}(x_i)\right).
+	\end{equation*}
+	Dado que $\text{Var}(x_i) = \sigma^2$ para $i = 1,2,\ldots,N$, obtemos que,
+	\begin{equation*}
+		\text{Var}(\overline{x}) = \left(\dfrac{1}{N}\right)^2\left(\sum_{i=1}^{N} \sigma^2\right) = \left(\dfrac{1}{N}\right)^2 \left(N\sigma^2\right) = \dfrac{\sigma^2}{N}.
+	\end{equation*}
+\end{enumerate}
