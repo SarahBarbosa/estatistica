@@ -1,4 +1,6 @@
-def media_amostral(dados):
+from typing import List
+
+def media_amostral(dados: List[float]) -> float:
     """
     Calcula a média amostral de cada variável aleatória.
 
@@ -14,7 +16,7 @@ def media_amostral(dados):
     """
     return sum(dados) / len(dados)
 
-def variancia_amostral(dados):
+def variancia_amostral(dados: List[float]) -> float:
     """
     Calcula a variância amostral de cada variável aleatória.
 
@@ -31,7 +33,7 @@ def variancia_amostral(dados):
     media = media_amostral(dados)
     return sum((xi - media) ** 2 for xi in dados) / (len(dados) - 1)
 
-def covariancia_amostral(dados1, dados2):
+def covariancia_amostral(dados1: List[float], dados2: List[float]) -> float:
     """
     Calcula a covariância entre duas variáveis aleatórias.
 
@@ -51,7 +53,7 @@ def covariancia_amostral(dados1, dados2):
     media2 = media_amostral(dados2)
     return sum((dados1[i] - media1) * (dados2[i] - media2) for i in range(len(dados1))) / (len(dados1) - 1)
 
-def correlacao_amostral(dados1, dados2):
+def correlacao_amostral(dados1: List[float], dados2: List[float]) -> float:
     """
     Calcula o coeficiente de correlação entre duas variáveis aleatórias.
 
