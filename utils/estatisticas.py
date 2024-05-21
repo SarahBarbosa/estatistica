@@ -1,66 +1,66 @@
-from typing import List, Union
-import numpy as np
-
-def media_amostral(dados: np.ndarray) -> np.ndarray:
+def media_amostral(dados):
     """
     Calcula a média amostral de cada variável aleatória.
 
     Parâmetros
     ----------
-    dados : numpy.ndarray
-        Array NumPy contendo os dados.
+    dados : list
+        Lista contendo os dados.
 
     Retorna
     -------
-    numpy.ndarray
-        Array contendo as médias amostrais.
+    float
+        Média amostral.
     """
-    return np.mean(dados, axis=0)
+    return sum(dados) / len(dados)
 
-def variancia_amostral(dados: np.ndarray) -> np.ndarray:
+def variancia_amostral(dados):
     """
     Calcula a variância amostral de cada variável aleatória.
 
     Parâmetros
     ----------
-    dados : numpy.ndarray
-        Array NumPy contendo os dados.
+    dados : list
+        Lista contendo os dados.
 
     Retorna
     -------
-    numpy.ndarray
-        Array contendo as variâncias amostrais.
+    float
+        Variância amostral.
     """
-    return np.var(dados, axis=0, ddof=1)
+    media = media_amostral(dados)
+    return sum((xi - media) ** 2 for xi in dados) / (len(dados) - 1)
 
-def covariancia_amostral(dados1: np.ndarray, dados2: np.ndarray) -> float:
+def covariancia_amostral(dados1, dados2):
     """
     Calcula a covariância entre duas variáveis aleatórias.
 
     Parâmetros
     ----------
-    dados1 : numpy.ndarray
-        Array NumPy contendo os dados da primeira variável aleatória.
-    dados2 : numpy.ndarray
-        Array NumPy contendo os dados da segunda variável aleatória.
+    dados1 : list
+        Lista contendo os dados da primeira variável aleatória.
+    dados2 : list
+        Lista contendo os dados da segunda variável aleatória.
 
     Retorna
     -------
     float
         Covariância entre as duas variáveis aleatórias.
     """
-    return np.cov(dados1, dados2, rowvar=False)[0, 1]
+    media1 = media_amostral(dados1)
+    media2 = media_amostral(dados2)
+    return sum((dados1[i] - media1) * (dados2[i] - media2) for i in range(len(dados1))) / (len(dados1) - 1)
 
-def correlacao_amostral(dados1: np.ndarray, dados2: np.ndarray) -> float:
+def correlacao_amostral(dados1, dados2):
     """
     Calcula o coeficiente de correlação entre duas variáveis aleatórias.
 
     Parâmetros
     ----------
-    dados1 : numpy.ndarray
-        Array NumPy contendo os dados da primeira variável aleatória.
-    dados2 : numpy.ndarray
-        Array NumPy contendo os dados da segunda variável aleatória.
+    dados1 : list
+        Lista contendo os dados da primeira variável aleatória.
+    dados2 : list
+        Lista contendo os dados da segunda variável aleatória.
 
     Retorna
     -------
@@ -68,6 +68,6 @@ def correlacao_amostral(dados1: np.ndarray, dados2: np.ndarray) -> float:
         Coeficiente de correlação entre as duas variáveis aleatórias.
     """
     cov = covariancia_amostral(dados1, dados2)
-    dp_x = np.std(dados1, ddof=1)
-    dp_y = np.std(dados2, ddof=1)
+    dp_x = variancia_amostral(dados1) ** 0.5
+    dp_y = variancia_amostral(dados2) ** 0.5
     return cov / (dp_x * dp_y)

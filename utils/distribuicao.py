@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 def normal_fdp(x: np.ndarray, mu: float, sigma: float) -> np.ndarray:
     """
@@ -66,3 +67,29 @@ def exponencial_fda(x: np.ndarray, lamb: float) -> np.ndarray:
         O valor da FDA para cada valor no conjunto x dado.
     """
     return 1 - np.exp(-lamb * x)
+
+def binomial_fmp(n: np.ndarray, N: int, p: float) -> np.ndarray:
+    """
+    Calcula a função de massa de probabilidade (FMP) para uma distribuição binomial.
+
+    A fórmula da FMP da distribuição binomial é dada por:
+    P_N(n) = (N! / (n! * (N - n)!)) * p^n * (1 - p)^(N - n)
+
+    Parâmetros
+    ----------
+    n : np.ndarray
+        O conjunto de valores (número de sucessos) para os quais a FMP será calculada.
+    N : int
+        O número de experimentos.
+    p : float
+        A probabilidade de sucesso em cada experimento.
+
+    Retorna
+    -------
+    np.ndarray
+        O valor da FMP para cada valor no conjunto n dado.
+    """
+    q = 1 - p
+    coef_binomial = np.array([math.comb(N, ni) for ni in n])
+    return coef_binomial * (p ** n) * (q ** (N - n))
+
