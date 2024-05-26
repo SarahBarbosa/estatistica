@@ -129,7 +129,7 @@ Assim, a probabilidade de que haverá um assento disponível para cada passageir
 \section{A Distribuição Gaussiana}
 
 A distribuição Gaussiana, frequentemente referida como \textbf{distribuição normal}, desempenha um papel especial na estatística. Uma variável aleatória contínua $X$ é dita ter uma distribuição Gaussiana se sua função densidade de probabilidade (FDP) for
-\begin{equation}
+\begin{equation}\label{3.8}
 f(x) = \dfrac{1}{\sqrt{2\pi \sigma^2}} \exp\left[-\dfrac{(x-\mu)^2}{2\sigma^2}\right]
 \end{equation}
 A função de distribuição é definida para todos os valores reais, e sua forma é determinada pelos dois parâmetros $\mu$ e $\sigma^2$, que também representam a média e a variância da variável aleatória (veja a \autoref{fig:3-2}). Uma Gaussiana com parâmetros $\mu$ e $\sigma^2$ é frequentemente referida como $\mathcal{N}(\mu, \sigma^2)$. É útil mostrar que a distribuição Gaussiana pode ser considerada um caso especial da distribuição binomial, no caso de um grande número de experimentos realizados.
@@ -140,3 +140,112 @@ A função de distribuição é definida para todos os valores reais, e sua form
 	\caption{Distribuições Gaussianas para valores selecionados da média e variância. A curva Gaussiana em azul tem a mesma média e variância que uma distribuição binomial com $N = 10$ e $p = 0.5$ (mostrada na \autoref{fig:3-1}).}
 	\label{fig:3-2}
 \end{SCfigure}
+
+\subsection{Derivação da Distribuição Gaussiana a partir da Distribuição Binomial}
+
+Quando o tamanho da amostra $N$ é grande, a distribuição binomial, representada na \autoref{3.5}, assume uma forma mais simplificada. Ter uma expressão analítica alternativa para a distribuição binomial é vantajoso, especialmente considerando a complexidade numérica associada ao cálculo de fatoriais para números grandes. Como destacado na \autoref{fig:3-1}, a distribuição binomial atinge um máximo em torno de $n = Np$. Esta seção demonstra que a distribuição binomial pode ser aproximada por:
+\begin{equation}
+P_N(n) \approx \dfrac{1}{\sqrt{2\pi Npq}}\exp\left[-\dfrac{(n-Np)^2}{2Npq}\right],
+\end{equation}
+quando $N \gg 1$, e para valores da variável que estão próximos ao pico da distribuição.
+
+Vamos começar expandindo o logaritmo da probabilidade binomial como uma série de Taylor na vizinhança do valor de pico $\tilde{n}$,
+\begin{equation*}
+\ln P_N(n) = \ln P_N(\tilde{n}) + \sum_{k=1}^{\infty} \dfrac{B_k}{k!} \Delta n^k,
+\end{equation*}
+onde $\Delta n = n - \tilde{n}$ é a desvio em relação ao valor de pico e
+\begin{equation*}
+B_k = \left. \dfrac{\partial^k \ln P_N(n)}{\partial n^k} \right|_{n=\tilde{n}}.
+\end{equation*}
+Como, por hipótese, $\tilde{n}$ é um ponto de máximo, $B_1 = 0$. Negligenciando termos de ordem superior à segunda, obtém-se a aproximação
+\begin{equation*}
+\ln P_N(n) \approx \ln P_N(\tilde{n}) + \dfrac{1}{2} B_2 \Delta n^2,
+\end{equation*}
+onde $B_2$ é negativo, já que $n = \tilde{n}$ é um ponto de máximo. Segue-se que,
+\begin{equation*}
+P_N(n) \approx P_N(\tilde{n})\exp\left(-\dfrac{|B_2| \Delta n^2}{2}\right).
+\end{equation*}
+Negligenciar termos de ordem superior em $\Delta n$ significa que a aproximação será particularmente precisa em regiões onde $\Delta n$ é pequeno, ou seja, próximo ao pico da distribuição. Longe do pico, a aproximação não será tão precisa. Para calcular $|B_2|$, façamos
+\begin{equation*}
+\ln P_N(n) = \ln\left\{\left[\dfrac{N!}{n!(N-n)!}\right] p^n q^{N-n}\right\} =  \ln N! - \ln n! - \ln (N - n)! + n \ln p + (N - n) \ln q,
+\end{equation*}
+e trate $n$ como uma variável contínua. Esta aproximação é razoável quando $n$ são números grandes, em particular quando a média $Np \gg 1$ e para valores próximos da média. O logaritmo de $n!$ pode ser aproximado pela \textbf{fórmula de Stirling},
+\begin{equation*}
+\ln n! = n\ln n - n + \mathcal{O}(\ln n),
+\end{equation*}
+onde $\mathcal{O}$ significa que, para todos os valores suficientemente grandes de $n$, a diferença entre $\ln n!$ e $n\ln n - n$ será no máximo proporcional ao logaritmo. Assim, a derivada dessa expressão pode ser aproximada com segue,
+\begin{equation*}
+\dfrac{\partial \ln n!}{\partial n} \approx \ln n + n\left(\dfrac{1}{n}\right) - 1 = \ln n.
+\end{equation*}
+A partir disso, segue-se que a primeira derivada da função de probabilidade, como esperado, é zero no valor de pico,
+\begin{equation*}
+\left. \dfrac{\partial \ln P_N(n)}{\partial n} \right|_{n=\tilde{n}} = -\ln n + \ln (N - n) + \ln p - \ln q \bigg|_{n=\tilde{n}} = \left. \ln\left[\dfrac{(N - n)p}{nq}\right] \right|_{n=\tilde{n}} = 0
+\end{equation*}
+de modo que o resultado familiar de,
+\begin{equation*}
+(N - \tilde{n})p = \tilde{n} q \Rightarrow \tilde{n} (p + q) = Np \Rightarrow  \tilde{n} = Np,
+\end{equation*}
+é obtido. Isso leva ao cálculo da segunda derivada,
+\begin{equation*}
+B_2 = \left. \frac{\partial^2 \ln P_N(n)}{\partial n^2} \right|_{n=\tilde{n}} = \dfrac{\partial}{\partial n} \left.\ln\left[\dfrac{(N - n)p}{nq}\right] \right|_{n=\tilde{n}} = \dfrac{\partial}{\partial n} \left[\ln(N - n) - \ln n\right]\bigg|_{n=\tilde{n}} = \left. -\dfrac{1}{N - n} - \dfrac{1}{n} \right|_{n=\tilde{n}},
+\end{equation*}
+onde,
+\begin{equation*}
+B_2 = -\dfrac{1}{N - \tilde{n}} - \dfrac{1}{\tilde{n}} = -\dfrac{1}{N(1 - p)} - \dfrac{1}{Np} = -\dfrac{1}{Npq},
+\end{equation*}
+em que usamos o fato que $p + q = 1$. Finalmente, a constante de normalização $P(\tilde{n})$ pode ser calculada fazendo uso da integral
+\begin{equation*}
+\int_{-\infty}^{\infty} e^{-ax^2} dx = \sqrt{\dfrac{\pi}{a}}.
+\end{equation*}
+impondo a condição de normalização da função de distribuição de probabilidade,
+\begin{equation*}
+P_N(\tilde{n}) \int_{-\infty}^{\infty} \exp{\left(-\dfrac{|B_2| \Delta n^2}{2}\right)}\,d\Delta n = P_N(\tilde{n}) \sqrt{\dfrac{2\pi}{|B_2|}} = 1, 
+\end{equation*}
+levando a (lembre-se que $|B_2| = 1/(Npq)$),
+\begin{equation*}
+P_N(\tilde{n}) = \dfrac{1}{\sqrt{2\pi Npq}}.
+\end{equation*}
+Assim, a aproximação da distribuição binomial para grandes valores de $n$ é, portanto:
+\begin{equation*}
+P_N(n) \approx \dfrac{1}{\sqrt{2\pi Npq}}\exp\left[-\dfrac{(n - Np)^2}{2Npq}\right].
+\end{equation*}
+
+Temos, portanto, que a média de uma distribuição binomial é $\mu = Np$ e a variância é $\sigma^2 = Npq$. Assim, a aproximação da binomial para grandes valores de $n$ pode ser reescrita como se segue,
+\begin{equation}
+P_N(n) \approx \dfrac{1}{\sqrt{2\pi Npq}}\exp\left[-\dfrac{(n - \mu)^2}{2\sigma^2}\right].
+\end{equation}
+que é a forma padrão da distribuição Gaussiana quando $n$ é uma variável contínua.
+
+\subsection{Momentos e Propriedades da Distribuição Gaussiana}
+
+Os parâmetros $\mu$ e $\sigma^2$ são, respectivamente, a média e a variância da distribuição Gaussiana. Esses resultados seguem da derivação da distribuição Gaussiana a partir da binomial e podem ser confirmados por cálculo direto das expectâncias a partir da \autoref{3.8}. Também pode ser provado que momentos centrais de ordem ímpar são zero, uma vez que a Gaussiana é simétrica em relação à média. Dado seu amplo uso na estatística, é importante quantificar a ``largura efetiva'' da distribuição Gaussiana em torno de sua média. Para determinar a probabilidade de que uma variável Gaussiana tenha valores em um intervalo de $\pm z\sigma$,
+\begin{equation*}
+A(z) = \int_{\mu - z \sigma}^{\mu + z \sigma} f(x) \, dx = \dfrac{1}{\sqrt{2\pi\sigma^2}} \int_{\mu - z \sigma}^{\mu + z \sigma}  \exp\left[-\dfrac{(x - \mu)^2}{2\sigma^2}\right] \, dx,
+\end{equation*}
+podemos começar simplificando essa integral realizando uma mudança de variável. Definimos $t = (x - \mu) / \sigma$, onde $x = \mu + t\sigma$ e $dx = \sigma dt$. Os limites da integral também mudam: quando $x = \mu - z\sigma$, $t = -z$, e quando $x = \mu + z\sigma$, $t = z$. Substituindo na integral, obtemos,
+\begin{equation}
+A(z) = \dfrac{1}{\sqrt{2\pi\sigma^2}} \int_{-z}^{z} \exp\left[-\dfrac{(\mu + t\sigma - \mu)^2}{2\sigma^2}\right] \sigma \,dt = \dfrac{1}{\sqrt{2\pi}} \int_{-z}^{z} \exp\left(-\dfrac{t^2}{2}\right) \, dt.
+\end{equation}
+Veja que probabilidade da variável esteja dentro de $\pm 1\sigma$ da média é $A(1) = 0.683$, ou $68.3\%$. Este intervalo da variável é também referido como um \textbf{intervalo de confiança} com 68,3\% de probabilidade (intervalos de confiança serão estudados em detalhe em capítulos posteriores). A correspondência entre o intervalo $\pm 1\sigma$ e a faixa que abrange 68.3\% da probabilidade aplica-se estritamente apenas à distribuição Gaussiana, para a qual o valor de $\sigma$ é definido pela função de distribuição. No entanto, é prática comum calcular o intervalo de 68.3\% (às vezes arredondado para 68\%) mesmo para aquelas variáveis aleatórias que não seguem estritamente uma distribuição Gaussiana, referindo-se a ele como o intervalo de $1\sigma$. As probabilidades associadas aos intervalos característicos de uma variável Gaussiana são apresentadas na \autoref{tab:3-2}.
+
+\begin{SCtable}[\sidecaptionrelwidth][!h]
+	\centering
+	\begin{tabular}{|l|l|}
+		\hline
+		Intervalo em torno da média & Probabilidade Integrada (\%) \\ \hline
+		$\pm 1\sigma$               & 68.27                        \\ \hline
+		$\pm 2\sigma$               & 95.45                        \\ \hline
+		$\pm 3\sigma$               & 99.73                        \\ \hline
+		$\pm 4\sigma$               & 99.99                        \\ \hline
+		$\pm 5\sigma$               & $\geq$ 99.9999               \\ \hline
+		FWHM (ou $\pm 1.18 \sigma$) & 76.10                        \\ \hline
+	\end{tabular}
+	\caption{Probabilidade associada a intervalos característicos de uma distribuição gaussiana.}
+	\label{tab:3-2}
+\end{SCtable}
+
+Todas as distribuições Gaussianas podem ser obtidas a partir da distribuição padrão $\mathcal{N}(0, 1)$ através de uma simples mudança de variável. Se $X$ é uma variável aleatória distribuída como $\mathcal{N}(\mu, \sigma^2)$ e $Z$ uma Gaussiana padrão $N(0, 1)$, então a relação entre $Z$ e $X$ é dada por
+\begin{equation}
+Z = \dfrac{X - \mu}{\sigma} \quad \text{(ou } X = \mu + \sigma Z \text{)}.
+\end{equation}
+A variável $Z$ também é referida como o \textbf{z-score} associado à variável $X$. Esta equação também significa que amostras de uma normal padrão podem ser usadas para gerar amostras de qualquer outra distribuição Gaussiana.
