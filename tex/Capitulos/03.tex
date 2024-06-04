@@ -223,7 +223,7 @@ Os parâmetros $\mu$ e $\sigma^2$ são, respectivamente, a média e a variância
 A(z) = \int_{\mu - z \sigma}^{\mu + z \sigma} f(x) \, dx = \dfrac{1}{\sqrt{2\pi\sigma^2}} \int_{\mu - z \sigma}^{\mu + z \sigma}  \exp\left[-\dfrac{(x - \mu)^2}{2\sigma^2}\right] \, dx,
 \end{equation*}
 podemos começar simplificando essa integral realizando uma mudança de variável. Definimos $t = (x - \mu) / \sigma$, onde $x = \mu + t\sigma$ e $dx = \sigma dt$. Os limites da integral também mudam: quando $x = \mu - z\sigma$, $t = -z$, e quando $x = \mu + z\sigma$, $t = z$. Substituindo na integral, obtemos,
-\begin{equation}
+\begin{equation}\label{3.11}
 A(z) = \dfrac{1}{\sqrt{2\pi\sigma^2}} \int_{-z}^{z} \exp\left[-\dfrac{(\mu + t\sigma - \mu)^2}{2\sigma^2}\right] \sigma \,dt = \dfrac{1}{\sqrt{2\pi}} \int_{-z}^{z} \exp\left(-\dfrac{t^2}{2}\right) \, dt.
 \end{equation}
 Veja que probabilidade da variável esteja dentro de $\pm 1\sigma$ da média é $A(1) = 0.683$, ou $68.3\%$. Este intervalo da variável é também referido como um \textbf{intervalo de confiança} com 68,3\% de probabilidade (intervalos de confiança serão estudados em detalhe em capítulos posteriores). A correspondência entre o intervalo $\pm 1\sigma$ e a faixa que abrange 68.3\% da probabilidade aplica-se estritamente apenas à distribuição Gaussiana, para a qual o valor de $\sigma$ é definido pela função de distribuição. No entanto, é prática comum calcular o intervalo de 68.3\% (às vezes arredondado para 68\%) mesmo para aquelas variáveis aleatórias que não seguem estritamente uma distribuição Gaussiana, referindo-se a ele como o intervalo de $1\sigma$. As probabilidades associadas aos intervalos característicos de uma variável Gaussiana são apresentadas na \autoref{tab:3-2}.
@@ -248,4 +248,133 @@ Todas as distribuições Gaussianas podem ser obtidas a partir da distribuição
 \begin{equation}
 Z = \dfrac{X - \mu}{\sigma} \quad \text{(ou } X = \mu + \sigma Z \text{)}.
 \end{equation}
-A variável $Z$ também é referida como o \textbf{z-score} associado à variável $X$. Esta equação também significa que amostras de uma normal padrão podem ser usadas para gerar amostras de qualquer outra distribuição Gaussiana.
+A variável $Z$ também é referida como o \textbf{z-score} associado à variável $X$.
+
+A distribuição cumulativa de uma variável normal $\mathcal{N}(0, 1)$ é definida pela seguinte integral:
+\begin{equation}
+	 B(z) = \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^{z} \exp\left(-\frac{t^2}{2}\right)\,dt = \dfrac{1}{2} + \dfrac{A(z)}{2},
+\end{equation}
+e descreve a probabilidade integrada até o valor $z$, onde $A(z)$, conforme a \autoref{3.11}, representa a probabilidade integrada entre $\pm z$.
+
+A \textbf{meia largura à meia altura}, algumas vezes referida como \textbf{HWHM} (do inglês \textit{half width at half maximum}), é definida como a distância entre o ponto de máximo da função de distribuição de probabilidade (em $x = \mu$) e o ponto onde a distribuição alcança metade do pico. Dessa forma, ao considerar $x = \mu$ na \autoref{3.8}, obtemos
+\begin{equation*}
+f(\mu) = \dfrac{1}{\sigma\sqrt{2\pi}},
+\end{equation*} 
+Como queremos encontrar o ponto onde a distribuição alcança metade deste valor máximo, multiplicamos essa expressão por $1/2$ e igualamos esse resultado a \autoref{3.8},
+\begin{equation*}
+\dfrac{1}{\sigma\sqrt{2\pi}} \exp\left[-\dfrac{(x-\mu)^2}{2\sigma^2}\right] = \dfrac{1}{2\sigma\sqrt{2\pi}}.
+\end{equation*}
+Após algum algebrismo na expressão acima, encontramos
+\begin{equation*}
+\text{HWHM} = |x - \mu| = \sigma \sqrt{2 \ln 2} \approx 1.18 \sigma,
+\end{equation*}
+o que significa que o ponto de meia altura está ligeiramente além de um desvio padrão da média, de ambos os lados da média. Da mesma forma, a \textbf{largura total à meia altura}, ou \textbf{FWHM} (do inglês \textit{full width at half maximum}), é definida como a faixa completa entre os dois pontos de meia altura, e é aproximadamente $2.36 \sigma$.
+
+\section{A Distribuição de Poisson}
+
+A distribuição de Poisson descreve a probabilidade de ocorrência de eventos em experimentos de contagem quando o resultado possível é um número inteiro. A distribuição é, portanto, discreta e pode ser derivada como um caso limite da distribuição binomial.
+
+\subsection{Derivação da Distribuição de Poisson}
+
+A distribuição binomial possui outra aproximação útil quando a probabilidade de sucesso é pequena, $p \ll 1$. Nesse caso, o número de resultados positivos é muito menor do que o número de tentativas, $n \ll N$, e a função fatorial pode ser aproximada como:
+\begin{equation*}
+N! = N (N - 1) \cdots (N - n + 1) \cdot (N - n)! \approx N^n(N - n)!. 
+\end{equation*}
+O termo $q^{N - n}$ pode ser aproximado usando:
+\begin{equation*}
+\ln q^{N - n} = \ln(1 - p)^{N - n} = (N - n) \ln(1 - p) \approx - p(N - n) \approx - pN, 
+\end{equation*}
+levando a:
+\begin{equation*}
+q^{N - n} \approx e^{- pN}
+\end{equation*}
+Essas duas aproximações podem ser usadas na \autoref{3.5} para obter:
+\begin{equation}
+P_N(n) = \dfrac{N!}{n!(N-n)!} p^n q^{N-n} \approx \dfrac{N^n(N - n)!}{n!(N - n)!}p^n e^{- pN} = \dfrac{(pN)^n}{n!}e^{- pN}.
+\end{equation}
+Como $pN$ é a média da distribuição, a aproximação torna-se:
+\begin{equation}\label{3.15}
+P_N(n) = \dfrac{\mu^n}{n!}e^{- \mu}.
+\end{equation}
+conhecida como \textbf{distribuição de Poisson}. Esta função descreve a probabilidade de obter $n$ resultados positivos, ou contagens, quando o número esperado de resultados é $\mu$. Pode-se ver imediatamente que a distribuição está devidamente normalizada, já que:
+\begin{equation*}
+\sum_{n=0}^{\infty} \dfrac{\mu^n}{n!} = e^\mu. 
+\end{equation*}
+
+Uma característica fundamental desta distribuição é que ela é descrita por apenas um parâmetro, a média $\mu$, em contraste com a distribuição Gaussiana que tinha dois parâmetros. Isso não significa que a distribuição de Poisson não tenha variância -- nesse caso, não seria uma variável aleatória -- mas que a variância pode ser escrita como uma função da média, como será mostrado a seguir.
+
+\subsection{Momentos e Propriedades da Distribuição de Poisson}
+
+A \autoref{3.15} perdeu sua referência ao experimento binomial, restando apenas a média $\mu = Np$ como parâmetro. Usando a definição de média e variância, é fácil provar que uma variável aleatória $X$ que segue uma distribuição de Poisson tem um valor esperado $\mathbb{E}[X] = \mu$ e uma variância $\text{Var}(X) = \mu$. O fato de que a média é igual à variância pode ser visto usando os valores para a binomial, $\mu = Np$ e $\sigma^2 = Npq$; como $p \ll 1$, $q \approx 1$, e $\mu \approx \sigma^2$. Como resultado, a distribuição de Poisson tem apenas um parâmetro que é igual tanto à média quanto à variância.
+
+A média e a variância de uma distribuição de Poisson também podem ser calculadas diretamente a partir da função de massa de probabilidade. A média pode ser calculada da seguinte forma:
+\begin{equation*}
+	\mathbb{E}[X] = \sum_{n=0}^{N} n P_N(n) = e^{- \mu}\sum_{n=0}^{N} n \dfrac{\mu^n}{n!}  = e^{- \mu} \left(\mu \dfrac{d}{d\mu}\right)\left(\sum_{n=0}^{N}\dfrac{\mu^n}{n!}\right) = \mu.
+\end{equation*}
+O momento de segunda ordem é:
+\begin{equation*}
+	\mathbb{E}[X^2] = \sum_{n=0}^{N} n^2 P_N(n) = e^{- \mu}\sum_{n=0}^{N} n^2 \dfrac{\mu^n}{n!} =  e^{- \mu} \left(\mu \dfrac{d}{d\mu}\right)\left(\sum_{n=0}^{N}n\dfrac{\mu^n}{n!}\right) = e^{-\mu} \mu \left[\dfrac{d}{d\mu}(\mu e^{\mu})\right] = \mu + \mu^2.
+\end{equation*}
+onde a equação para a média foi usada na derivação. Portanto, a variância é:
+\begin{equation*}
+\text{Var}(X) = \mathbb{E}[X^2] - \mathbb{E}[X]^2 = \mu + \mu^2 - \mu^2 = \mu.
+\end{equation*}
+
+A distribuição de Poisson é interpretada como a probabilidade de ocorrência de \(n\) contagens quando a média esperada das contagens é $\mu$. Isso faz da distribuição de Poisson a principal ferramenta estatística para todos os experimentos de \textit{contagem}. Ao contrário da distribuição binomial, que é limitada a valores inteiros $n \leq N$, a distribuição de Poisson é definida para qualquer número inteiro não negativo. A referência ao número total de eventos possíveis ($N$) e a probabilidade de ocorrência de cada evento ($p$) foi perdida, restando apenas a média $\mu$ para descrever a principal propriedade do experimento de contagem.
+
+Como pode ser visto na \autoref{fig:3-3}, a distribuição de Poisson não é simétrica em relação à média, e a distribuição torna-se mais simétrica para valores maiores da média. Como em todas as distribuições discretas, só é significativo calcular a probabilidade em um ponto específico ou para um conjunto de pontos, e não para um intervalo de pontos, como no caso das distribuições contínuas. Além disso, a média da própria distribuição pode ser um número não inteiro, e ainda assim o resultado do experimento descrito pela distribuição de Poisson só pode assumir valores inteiros.
+
+\begin{SCfigure}[\sidecaptionrelwidth][ht!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{Figuras/3-3.pdf}
+	\caption{Distribuições de Poisson amostrais para valores selecionados da média. A função de massa de probabilidade de Poisson é definida para todos os valores $n \geq 0$.}
+	\label{fig:3-3}
+\end{SCfigure}
+
+\begin{exemplo}{}{}
+Considere uma fonte astronômica conhecida por produzir fótons, que são geralmente detectados por um dado detector na quantidade de $\mu = 2.5$ em um dado intervalo de tempo. A probabilidade de detectar $n = 4$ fótons em um dado intervalo de tempo é, portanto:
+\begin{equation*}
+P(n = 4; \mu = 2.5) =  \dfrac{\mu^n}{n!}e^{- \mu} = \frac{2.5^4}{4!}e^{-2.5} = 0.134.
+\end{equation*}
+A razão para uma probabilidade aparentemente grande de obter uma medida que difere da média esperada é simplesmente devido à natureza estatística do processo de detecção.
+\end{exemplo}
+
+\subsection{A Distribuição de Poisson e o Processo de Poisson}
+
+Uma justificativa mais formal para a interpretação da distribuição de Poisson como a distribuição de experimentos de contagem vem do \textbf{processo de Poisson}. Embora um tratamento completo deste assunto esteja além do escopo deste livro, uma breve descrição de processos estocásticos servirá para fortalecer a interpretação de \ref{3.15}, que é um dos fundamentos da estatística. Mais detalhes sobre processos estocásticos podem ser encontrados, por exemplo, no livro-texto de \citet{ross2019introduction}.
+
+
+Um \textbf{processo de contagem estocástico} $\{N(t), t > 0\}$ é uma sequência de variáveis aleatórias $N(t)$, em que $t$ indica o tempo, e $N(t)$ é uma variável aleatória que indica o número de eventos que ocorreram até o tempo $t$. O processo estocástico pode ser pensado como a repetição do experimento de ``contar a ocorrência de um determinado evento'' em vários momentos $t$ e $N(t)$ é o resultado do experimento. O \textbf{processo de Poisson com taxa} $\lambda$ é um tipo particular de processo estocástico, com as seguintes propriedades:
+
+\begin{enumerate}[noitemsep]
+\item  $N(0) = 0$, o que significa que no tempo $0$ não há contagens detectadas.
+\item O processo tem \textbf{incrementos independentes}, o que significa que $N(s + t) - N(s)$ é independente de $N(s)$. Esta propriedade significa que eventos que ocorrem após o tempo $s$ não são influenciados pelos que ocorreram antes.
+\item O processo tem \textbf{incrementos estacionários}, ou seja, a distribuição do número de eventos em um intervalo de tempo $s$ depende apenas da duração do próprio intervalo de tempo.
+\item $P(N(h) = 1) = \lambda h + \mathcal{O}(h)$, onde $\mathcal{O}(h)$ é uma função com a propriedade que
+\begin{equation*}
+\lim_{h \to 0} \dfrac{O(h)}{h} = 0.
+\end{equation*}
+\item $P(N(h) \geq 2) = \mathcal{O}(h)$. As duas últimas propriedades significam que a probabilidade de obter uma contagem depende do valor finito $\lambda$, enquanto é improvável que dois ou mais eventos ocorram em um curto intervalo de tempo.
+\end{enumerate}
+Pode-se mostrar que, sob essas hipóteses, o número de eventos $N(t)$ registrado em qualquer intervalo de comprimento $t$ é distribuído segundo Poisson,
+\begin{equation}
+P\{N(s + t) - N(s) = n\} = \dfrac{(\lambda t)^n }{n!}e^{-\lambda t}
+\end{equation}
+Isso mostra que a distribuição de Poisson deve ser interpretada como a distribuição da ocorrência de $n$ eventos durante um intervalo de tempo $t$, sob a hipótese de que a taxa de ocorrência de eventos é $\lambda$. Esta interpretação é idêntica à fornecida acima, dado que $\mu = \lambda t$ é a média das contagens nesse intervalo de tempo.
+
+\section{Comparação das Distribuições Binomial, Gaussiana e de Poisson}
+
+Uma comparação entre as distribuições binomial, gaussiana e de Poisson com a mesma média é ilustrada na \autoref{fig:3-4}.
+
+\begin{SCfigure}[\sidecaptionrelwidth][ht!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{Figuras/3-4.pdf}
+	\caption{Comparação das distribuições de probabilidade binomial, gaussiana e de Poisson. As curvas à esquerda são para variáveis aleatórias com uma média esperada de $\mu = 1$ e à direita para $\mu = 5$.}
+	\label{fig:3-4}
+\end{SCfigure}
+
+A média e a variância de uma distribuição binomial são determinadas pela escolha do número de tentativas \( N \) e pela probabilidade de sucesso \( p \) do experimento binário, com \( \mu = Np \) e \( \sigma^2 = Npq \). No caso da distribuição gaussiana, a média e a variância podem ser escolhidas independentemente como os dois parâmetros da função de distribuição de probabilidade. A distribuição de Poisson, por outro lado, tem a característica especial de ter o mesmo valor para a média e a variância, na quantidade do único parâmetro \( \mu \) na distribuição. Os dois conjuntos de curvas na Fig. 3.4 compartilham a mesma média, mas não é possível impor simultaneamente a mesma variância. Por exemplo, a distribuição de Poisson com \( \mu = 5 \) tem uma variância maior do que a binomial com \( N = 10 \) e \( p = 0,5 \), que tem uma variância de \( \sigma^2 = 2,5 \).
+
+É de importância prática discutir a aproximação da distribuição de Poisson com uma distribuição normal de mesma média e variância. Para valores pequenos da média, a distribuição de Poisson é assimétrica em torno da média, como ilustrado na Fig. 3.4. À medida que a média aumenta, a distribuição torna-se progressivamente mais simétrica e os intervalos de confiança em torno da média se aproximam daqueles de uma distribuição gaussiana, como ilustrado na Fig. 3.5. Intervalos de confiança são calculados como intervalos em torno da média que englobam uma dada probabilidade. Para a distribuição gaussiana, os intervalos de confiança são sempre simétricos em torno da média. Para valores pequenos da média de Poisson, os intervalos de confiança são deslocados para valores maiores da variável aleatória, comparados à gaussiana, e tornam-se progressivamente mais próximos dos intervalos gaussianos à medida que a média aumenta. Dado que a distribuição de Poisson tem valores inteiros, a forma irregular das curvas de intervalo de confiança de Poisson (em vermelho na Fig. 3.5) é explicada pela exigência de que os intervalos também sejam limitados por inteiros. Por exemplo, o intervalo de uma variável de Poisson com \( \mu = 1 \) que engloba 90% da probabilidade é de 0 a 3, enquanto para uma distribuição gaussiana com a mesma média (e variância igual à média) é de -0,645 a +2,645, ou 1 ± 1,645, veja a Tabela A.4.
+
+A aproximação de uma distribuição normal também é mostrada pela curva sólida, indicando a diferença fracional das distribuições de Poisson e normal no valor de pico de \( x = \mu \), como uma indicação da forma relativa das duas curvas. Como resultado, a aproximação de uma distribuição de Poisson com uma gaussiana de mesma média e variância torna-se cada vez mais precisa à medida que a média aumenta.
