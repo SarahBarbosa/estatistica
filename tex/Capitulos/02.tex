@@ -268,9 +268,9 @@ Vamos então obter a expectância da variância amostral da seguinte maneira:
 \end{align*}
 
 O termo $\mathbb{E}[\textstyle\sum_{i=1}^{N} (\mu - \bar{x})^2]$ é $N$ vezes a variância da média amostral. Esta variância pode ser calculada observando que as $N$ medidas $x_i$ são, na verdade, variáveis aleatórias independentes com a mesma distribuição e mesma média $\mu$. A propriedade linear da variância, que só se aplica a variáveis independentes, leva a:
-\begin{equation*}
+\begin{equation}\label{2.25}
 \text{Var}(\overline{x}) = \dfrac{\text{Var}(x_1 + \cdots + x_n)}{N^2} = \frac{\sigma^2}{N},
-\end{equation*}
+\end{equation}
 onde $\sigma^2$ é a variância populacional de cada uma das variáveis $X_i$. O último termo na equação é $\textstyle\sum_{i=1}^{N} (x_i - \mu) = N (\overline{x} - \mu)$, portanto:
 \begin{align*}
 \mathbb{E}[s^2] &= \dfrac{1}{N -1}\left(\mathbb{E}\left[\sum_{i=1}^N(x_i - \mu)^2\right] + N\,\mathbb{E}\left[(\mu - \overline{x})^2\right] + 2N\,\mathbb{E}\left[(\mu - \overline{x})(\overline{x} - \mu)\right]\right) \\

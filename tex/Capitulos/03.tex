@@ -72,7 +72,7 @@ conhecida como a \textbf{distribuição binomial}. Esta distribuição descreve 
 Os momentos de primeira e segunda ordem de uma variável $X$ distribuída binominalmente são dados por:
 \begin{subequations}\label{3.6}
 \begin{align}
-\mathbb{E}[X] &= \mu = pN \\
+\mathbb{E}[X] &= \mu = pN \label{3.6a}\\
 \mathbb{E}[X^2] &= \mu^2 + pqN 
 \end{align}
 \end{subequations}
@@ -226,7 +226,7 @@ podemos começar simplificando essa integral realizando uma mudança de variáve
 \begin{equation}\label{3.11}
 A(z) = \dfrac{1}{\sqrt{2\pi\sigma^2}} \int_{-z}^{z} \exp\left[-\dfrac{(\mu + t\sigma - \mu)^2}{2\sigma^2}\right] \sigma \,dt = \dfrac{1}{\sqrt{2\pi}} \int_{-z}^{z} \exp\left(-\dfrac{t^2}{2}\right) \, dt.
 \end{equation}
-Veja que probabilidade da variável esteja dentro de $\pm 1\sigma$ da média é $A(1) = 0.683$, ou $68.3\%$. Este intervalo da variável é também referido como um \textbf{intervalo de confiança} com 68,3\% de probabilidade (intervalos de confiança serão estudados em detalhe em capítulos posteriores). A correspondência entre o intervalo $\pm 1\sigma$ e a faixa que abrange 68.3\% da probabilidade aplica-se estritamente apenas à distribuição Gaussiana, para a qual o valor de $\sigma$ é definido pela função de distribuição. No entanto, é prática comum calcular o intervalo de 68.3\% (às vezes arredondado para 68\%) mesmo para aquelas variáveis aleatórias que não seguem estritamente uma distribuição Gaussiana, referindo-se a ele como o intervalo de $1\sigma$. As probabilidades associadas aos intervalos característicos de uma variável Gaussiana são apresentadas na \autoref{tab:3-2}.
+Veja que probabilidade da variável esteja dentro de $\pm 1\sigma$ da média é $A(1) = 0.683$, ou $68.3\%$. Este intervalo da variável é também referido como um \textbf{intervalo de confiança} com 68,3\% de probabilidade (intervalos de confiança serão estudados em detalhe em capítulos posteriores). A correspondência entre o intervalo $\pm 1\sigma$ e a faixa que abrange 68.3\% da probabilidade aplica-se estritamente apenas à distribuição Gaussiana, para a qual o valor de $\sigma$ é definido pela função de distribuição. No entanto, é prática comum calcular o intervalo de 68.3\% (às vezes arredondado para 68\%) mesmo para aquelas variáveis aleatórias que não seguem estritamente uma distribuição Gaussiana, referindo-se a ele como o intervalo de $1\sigma$. As probabilidades associadas aos intervalos característicos de uma variável Gaussiana são apresentadas na \autoref{tab:3-2}\footnote{Existem tabelas completas de distribuição Gaussiana em diversos livros de estatística e também em muitos sites. Um bom recurso é o site do \textbf{Calculator.net}, que oferece uma calculadora interativa. Você pode acessar a calculadora através do seguinte link: \url{https://www.calculator.net/z-score-calculator.html}. Aqui você pode inserir o valor de $Z$ e obter a probabilidade correspondente.}.
 
 \begin{SCtable}[\sidecaptionrelwidth][!h]
 	\centering
@@ -245,13 +245,13 @@ Veja que probabilidade da variável esteja dentro de $\pm 1\sigma$ da média é 
 \end{SCtable}
 
 Todas as distribuições Gaussianas podem ser obtidas a partir da distribuição padrão $\mathcal{N}(0, 1)$ através de uma simples mudança de variável. Se $X$ é uma variável aleatória distribuída como $\mathcal{N}(\mu, \sigma^2)$ e $Z$ uma Gaussiana padrão $N(0, 1)$, então a relação entre $Z$ e $X$ é dada por
-\begin{equation}
+\begin{equation}\label{3.12}
 Z = \dfrac{X - \mu}{\sigma} \quad \text{(ou } X = \mu + \sigma Z \text{)}.
 \end{equation}
 A variável $Z$ também é referida como o \textbf{z-score} associado à variável $X$.
 
 A distribuição cumulativa de uma variável normal $\mathcal{N}(0, 1)$ é definida pela seguinte integral:
-\begin{equation}
+\begin{equation}\label{3.13}
 	 B(z) = \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^{z} \exp\left(-\frac{t^2}{2}\right)\,dt = \dfrac{1}{2} + \dfrac{A(z)}{2},
 \end{equation}
 e descreve a probabilidade integrada até o valor $z$, onde $A(z)$, conforme a \autoref{3.11}, representa a probabilidade integrada entre $\pm z$.
@@ -373,8 +373,24 @@ Uma comparação entre as distribuições binomial, gaussiana e de Poisson com a
 	\label{fig:3-4}
 \end{SCfigure}
 
-A média e a variância de uma distribuição binomial são determinadas pela escolha do número de tentativas \( N \) e pela probabilidade de sucesso \( p \) do experimento binário, com \( \mu = Np \) e \( \sigma^2 = Npq \). No caso da distribuição gaussiana, a média e a variância podem ser escolhidas independentemente como os dois parâmetros da função de distribuição de probabilidade. A distribuição de Poisson, por outro lado, tem a característica especial de ter o mesmo valor para a média e a variância, na quantidade do único parâmetro \( \mu \) na distribuição. Os dois conjuntos de curvas na Fig. 3.4 compartilham a mesma média, mas não é possível impor simultaneamente a mesma variância. Por exemplo, a distribuição de Poisson com \( \mu = 5 \) tem uma variância maior do que a binomial com \( N = 10 \) e \( p = 0,5 \), que tem uma variância de \( \sigma^2 = 2,5 \).
+A média e a variância de uma distribuição binomial são determinadas pela escolha do número de tentativas $N$ e pela probabilidade de sucesso $p$ do experimento binário, com $\mu = Np$ e $\sigma^2 = Npq$. No caso da distribuição gaussiana, a média e a variância podem ser escolhidas independentemente como os dois parâmetros da função de distribuição de probabilidade. A distribuição de Poisson, por outro lado, tem a característica especial de ter o mesmo valor para a média e a variância, na quantidade do único parâmetro $\mu$ na distribuição. Os dois conjuntos de curvas na \autoref{fig:3-4} compartilham a mesma média, mas não é possível impor simultaneamente a mesma variância. Por exemplo, a distribuição de Poisson com $\mu = 5$ tem uma variância maior do que a binomial com $N = 10$ e $p = 0.5$, que tem uma variância de $\sigma^2 = 2.5$.
 
-É de importância prática discutir a aproximação da distribuição de Poisson com uma distribuição normal de mesma média e variância. Para valores pequenos da média, a distribuição de Poisson é assimétrica em torno da média, como ilustrado na Fig. 3.4. À medida que a média aumenta, a distribuição torna-se progressivamente mais simétrica e os intervalos de confiança em torno da média se aproximam daqueles de uma distribuição gaussiana, como ilustrado na Fig. 3.5. Intervalos de confiança são calculados como intervalos em torno da média que englobam uma dada probabilidade. Para a distribuição gaussiana, os intervalos de confiança são sempre simétricos em torno da média. Para valores pequenos da média de Poisson, os intervalos de confiança são deslocados para valores maiores da variável aleatória, comparados à gaussiana, e tornam-se progressivamente mais próximos dos intervalos gaussianos à medida que a média aumenta. Dado que a distribuição de Poisson tem valores inteiros, a forma irregular das curvas de intervalo de confiança de Poisson (em vermelho na Fig. 3.5) é explicada pela exigência de que os intervalos também sejam limitados por inteiros. Por exemplo, o intervalo de uma variável de Poisson com \( \mu = 1 \) que engloba 90% da probabilidade é de 0 a 3, enquanto para uma distribuição gaussiana com a mesma média (e variância igual à média) é de -0,645 a +2,645, ou 1 ± 1,645, veja a Tabela A.4.
+\section{Problemas}
 
-A aproximação de uma distribuição normal também é mostrada pela curva sólida, indicando a diferença fracional das distribuições de Poisson e normal no valor de pico de \( x = \mu \), como uma indicação da forma relativa das duas curvas. Como resultado, a aproximação de uma distribuição de Poisson com uma gaussiana de mesma média e variância torna-se cada vez mais precisa à medida que a média aumenta.
+\begin{enumerate}[label=\textbf{\arabic{chapter}.\arabic*.}]
+	
+\item Considere uma variável aleatória $X$ que segue a distribuição gaussiana:
+\begin{equation*}
+f(x) = \dfrac{1}{\sqrt{2\pi \sigma^2}} \exp\left[-\dfrac{(x-\mu)^2}{2\sigma^2}\right]
+\end{equation*}
+Calcule a média e a variância de $X$ e mostre que todos os momentos ímpares $\mathbb{E}[(X - \mu)^n]$ de ordem $n \geq 3$ são zero.
+
+\item Assuma que os resultados de um teste de Q.I. seguem uma distribuição gaussiana, e que as pontuações são padronizadas de tal forma que a média é $\mu = 100$ e o desvio padrão é $\sigma = 15$. Calcule (a) a probabilidade de que uma pontuação de Q.I. seja maior ou igual a 145 e (b) a probabilidade de que a média da pontuação de Q.I. de uma amostra de 100 pessoas, escolhidas aleatoriamente, seja igual ou maior que 105.
+
+\item Uma moeda é lançada dez vezes. Encontre (a) a probabilidade de obter 5 caras e 5 coroas,
+(b) a probabilidade de que as primeiras 5 jogadas mostrem caras, e as últimas 5 jogadas mostrem coroas e (c) a probabilidade de obter pelo menos 7 caras.
+
+\item Em um determinado curso, sabe-se que 7.3\% dos alunos reprovam. (a) Qual é o valor esperado de reprovações em uma turma de 32 alunos? (b) Qual é a probabilidade de que 5 ou mais alunos reprovem?
+
+\item A frequência de gêmeos na população europeia é de cerca de 12 em cada 1000 maternidades. Calcule a probabilidade de não haver gêmeos em 200 nascimentos, usando (a) a distribuição binomial e (b) a distribuição de Poisson.
+\end{enumerate}

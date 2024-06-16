@@ -124,7 +124,7 @@ O conhecimento da sequência cara-coroa-cara-coroa de fato implica a certeza de 
 		\text{Var}(\overline{x}) = \left(\dfrac{1}{N}\right)^2\left(\sum_{i=1}^{N} \sigma^2\right) = \left(\dfrac{1}{N}\right)^2 \left(N\sigma^2\right) = \dfrac{\sigma^2}{N}.
 	\end{equation*}
 	
-	\item Utilizando os conjuntos de dados para o Tubo 1 e o Tubo 2 (disponíveis em \mintinline{python}|../data/thomson_tubo1.dat| e \mintinline{python}|../data/thomson_tubo2.dat|, respectivamente), podemos calcular a média amostral (\autoref{2.8}), variância (\autoref{2.14}), covariância (\autoref{2.19}) e coeficiente de correlação (\autoref{2.22}). As fórmulas correspondentes foram implementadas em Python e podem ser encontradas em \mintinline{python}|../utils/estatisticas.py|. Os resultados obtidos após a aplicação dessas fórmulas são os seguintes:
+	\item Utilizando os conjuntos de dados para o Tubo 1 e o Tubo 2 (disponíveis em \mintinline{python}|../data/thomson1.dat| e \mintinline{python}|../data/thomson2.dat|, respectivamente), podemos calcular a média amostral (\autoref{2.8}), variância (\autoref{2.14}), covariância (\autoref{2.19}) e coeficiente de correlação (\autoref{2.22}). As fórmulas correspondentes foram implementadas em Python e podem ser encontradas em \mintinline{python}|../utils/justdoit.py|. Os resultados obtidos após a aplicação dessas fórmulas são os seguintes:
 	
 	\begin{itemize}
 		\item Tubo 1:
@@ -161,4 +161,99 @@ O conhecimento da sequência cara-coroa-cara-coroa de fato implica a certeza de 
 	Todas as medições estão dentro do desvio padrão umas das outras, e a afirmação é portanto verificada. As medições estão em unidades de $10^{-7}$. A aplicação das fórmulas correspondentes pode ser vista no Jupyter Notebook \mintinline{python}|../docs/notebooks/cap02.ipynb|.
 	
 	\item A covariância amostral é calculada como $-0.33$ e o coeficiente de correlação amostral como $-0.14$. A aplicação das fórmulas correspondentes pode ser vista no Jupyter Notebook \mintinline{python}|../docs/notebooks/cap02.ipynb|. 
+\end{enumerate}
+
+\section*{Capítulo 3}
+\addcontentsline{toc}{section}{Capítulo 3}
+
+\begin{enumerate}[label=\textbf{3.\arabic*.}]
+	
+	\item Para calcular os momentos da distribuição Gaussiana, precisamos ter em mente as seguintes integrais:
+	\begin{equation*}
+	\int_{-\infty}^{\infty} e^{-ax^2}\, dx = \sqrt{\dfrac{\pi}{a}}; \qquad \int_{-\infty}^{\infty}x e^{-ax^2}\, dx = 0, \qquad \text{e} \qquad \int_{-\infty}^{\infty}x^2 e^{-ax^2}\, dx = \dfrac{\sqrt{\pi}}{2}\dfrac{1}{a^{3/2}}.
+	\end{equation*}
+	A média pode ser calculada como,
+	\begin{equation*}
+		\mathbb{E}[X] = \int_{-\infty}^{\infty} x f(x)\, dx = \dfrac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^{\infty} x \exp\left[-\dfrac{(x-\mu)^2}{2\sigma^2}\right]\, dx,
+	\end{equation*}
+	fazendo $y = x - \mu$,
+	\begin{equation*}
+		\mathbb{E}[X] = \dfrac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^{\infty} (y + \mu) \exp\left(-\dfrac{y^2}{2\sigma^2}\right)\, dy =  \dfrac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^{\infty} \mu \exp\left(-\dfrac{y^2}{2\sigma^2}\right)\, dy = \mu.
+	\end{equation*}
+	Para calcular a variância, precisamos do momento de segunda ordem,
+	\begin{equation*}
+		\mathbb{E}[X^2] = \int_{-\infty}^{\infty} x^2 f(x)\, dx = \dfrac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^{\infty} x^2 \exp\left[-\dfrac{(x-\mu)^2}{2\sigma^2}\right]\, dx.
+	\end{equation*}
+	Fazendo $y = x - \mu$ e expandindo os termos,
+	\begin{align*}
+		\mathbb{E}[X^2] &= \dfrac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^{\infty} (y + \mu)^2 \exp\left(-\dfrac{y^2}{2\sigma^2}\right)\, dy \\
+		&= \dfrac{1}{\sqrt{2\pi \sigma^2}} \left[\int_{-\infty}^{\infty} y^2 \exp\left(-\dfrac{y^2}{2\sigma^2}\right)\, dy + 2\mu\int_{-\infty}^{\infty}  y \exp\left(-\dfrac{y^2}{2\sigma^2}\right)\, dy + \mu^2\int_{-\infty}^{\infty}  \exp\left(-\dfrac{y^2}{2\sigma^2}\right)\, dy\right] \\
+		&= \dfrac{1}{\sqrt{2\pi \sigma^2}} \left[\dfrac{\sqrt{\pi}}{2}\left(2\sigma^2\right)^{3/2} + \mu^2 \sqrt{2\pi\sigma^2} \right] \\ 
+		&= \sigma^2 + \mu^2.
+	\end{align*}
+	Portanto, a variância é:
+	\begin{equation*}
+		\text{Var}(X) = \mathbb{E}[X^2] - \mathbb{E}[X]^2 = \sigma^2 + \mu^2 - \mu^2 = \sigma^2.
+	\end{equation*}
+	Os momentos centrais ímpares de ordem superior são,
+	\begin{equation*}
+		\mathbb{E}[(X - \mu)^{2n + 1}] = \int_{-\infty}^{\infty} (x - \mu)^{2n + 1} \exp\left[-\dfrac{(x-\mu)^2}{2\sigma^2}\right]\, dx = \int_{-\infty}^{\infty} y^{2n + 1} \exp\left[-\dfrac{y^2}{2\sigma^2}\right]\, dy = 0,
+	\end{equation*}	
+	onde novamente consideramos $y = x - \mu$. A integral acima é sempre zero para qualquer $n \geq 0$ devido à combinação da paridade ímpar de $y^{2n+1}$ e a natureza par da função exponencial. O produto de uma função ímpar por uma função par resulta em uma função ímpar, cuja integral sobre um intervalo simétrico como $-\infty$ a $\infty$ se cancela, garantindo que a integral total seja zero.
+	
+	\item (a) Dado que as pontuações seguem uma distribuição normal com média $\mu = 100$ e desvio padrão $\sigma = 15$, queremos encontrar a probabilidade de que um Q.I. seja maior ou igual a 145. Primeiro precisamos converter essa pontuação de Q.I. para um z-score (\autoref{3.12}), 
+	\begin{equation*}
+	Z = \dfrac{X - \mu}{\sigma} = \dfrac{145 - 100}{15} = 3
+	\end{equation*}
+	 Utilizando a \autoref{3.13} ou a calculadora online \href{https://www.calculator.net/z-score-calculator.html?c1raw=145&c1mean=100&c1sd=15&calctype=zscore&x=Calculate}{Calculator.net}, encontramos a probabilidade de $Z$ ser menor que 3, e subtraímos esse valor de 1, já que queremos a probabilidade de $Z$ ser maior ou igual a 3:
+	\begin{equation*}
+	P(Z \geq 3) = 1 - P(Z < 3) = 1 - 0.99865 = 0.00135.
+	\end{equation*} 
+	Assim, 0.135\% é a probabilidade de exceder a média em $3\sigma$ na direção positiva. (b) Para a média da pontuação de Q.I. de uma amostra de 100 pessoas, queremos calcular a probabilidade de que esta média seja igual ou maior que 105. A média amostral ($\bar{x}$) também segue uma distribuição normal, mas com o desvio padrão reduzido pelo fator de raiz do tamanho da amostra (\autoref{2.25}):
+	\begin{equation*}
+	\sigma_{\overline{x}} = \dfrac{\sigma}{\sqrt{N}} = \dfrac{15}{\sqrt{100}} = 1.5.
+	\end{equation*}
+	Convertendo para a $Z$-score:
+	\begin{equation*}
+	Z = \dfrac{\overline{x} - \mu}{\sigma_{\overline{x}}} = \dfrac{105 - 100}{1.5} \approx 3.33
+	\end{equation*}
+	Usando a distribuição normal \autoref{3.13} novamente ou a calculadora online \href{https://www.calculator.net/z-score-calculator.html?c1raw=105&c1mean=100&c1sd=1.5&calctype=zscore&x=Calculate}{Calculator.net},
+	\begin{equation*}
+	P(Z \geq 3.33) = 1 - P(Z < 3.33) \approx 1 - 0.99957 = 0.00043
+	\end{equation*}
+	Portanto, a probabilidade de que a média da pontuação de Q.I. de uma amostra de 100 pessoas seja igual ou maior que 105 é aproximadamente 0.043\%.
+	
+	\item (a) Isso pode ser calculado usando a distribuição binomial. Cada tentativa (lançamento da moeda) tem apenas dois resultados possíveis (sucessos ou fracassos) com probabilidades iguais $p = q = 0.5$ (caso a moeda seja justa). Usando a fórmula binomial (\autoref{3.5}), calculamos,
+	\begin{equation*}
+	P_{10}(5) = \binom{10}{5} (0.5)^5 (0.5)^{10 - 5} = \binom{10}{5}(0.5)^{10} \approx 0.246. 
+	\end{equation*}
+	(b) Nesse caso específico, cada sequência de jogadas é independente, então a probabilidade de um evento específico em que as primeiras 5 são caras e as últimas 5 são coroas é simplesmente:
+	\begin{equation*}
+	P(\text{5 caras seguidas e depois 5 coroas}) = (0.5)^5 \cdot (0.5)^5 = 0.000977.
+	\end{equation*}
+	(c) Para obter pelo menos 7 caras, somamos as probabilidades de obter 7, 8, 9 e 10 caras:
+	\begin{align*}
+	P(\text{pelo menos 7 caras}) &= P_{10}(7) + P_{10}(8) + P_{10}(9) + P_{10}(10) \\
+	& = \binom{10}{7} (0.5)^{10} + \binom{10}{8} (0.5)^{10} + \binom{10}{9} (0.5)^{10} + \binom{10}{10} (0.5)^{10} \\
+	&\approx 0.172.
+	\end{align*}
+	
+	\item (a) O valor esperado em uma distribuição binomial é dado pela \autoref{3.6a}. Usando essa expressão, obtemos
+	\begin{equation*}
+	\mathbb{E}[X] = \mu = pN = (0.073)(32) = 2.336.
+	\end{equation*}
+	Portanto, o valor esperado de reprovações em uma turma de 32 alunos é aproximadamente 2.336 alunos. (b)	Para calcular a probabilidade de que 5 ou mais alunos reprovem, usamos a \autoref{3.5} e subtraímos de 1 para obter a probabilidade do complemento. Ou seja, para calcular $P(n \geq 5)$, somamos as probabilidades de $n = 5, 6, \dots, 32$. No entanto, é mais prático calcular $1 - P(n < 5)$, que é $P(n = 0) + P(n = 1) + P(n = 2) + P(n = 3) + P(n = 4)$. Assim, 
+	\begin{equation*}
+	P(n \geq 5) = 1 - P(n < 5) = 1 - \sum_{n=0}^{4} \binom{32}{n} (0.073)^n (0.927)^{32-n} \approx 0.0803,
+	\end{equation*}	
+	A probabilidade de que 5 ou mais alunos reprovem em uma turma de 32 alunos é aproximadamente 8.03\%.
+	
+	\item (a) Usando a \autoref{3.5}, a probabilidade de que não haja gêmeos em 200 nascimentos é:
+	\begin{equation*}
+	P(n = 0) =  \binom{200}{0} (0.012)^0 (1 - 0.012)^{200} \approx 0.0894
+	\end{equation*}
+	(b) A distribuição de Poisson é usada como uma aproximação da binomial quando $N$ é grande e $p$ é pequeno, o que é o caso aqui. Usando a \autoref{3.15} com $\mu = pN$, a probabilidade de $n = 0$ gêmeos:
+	\begin{equation*}
+	P(n = 0) = \dfrac{\mu^n}{n!}e^{- \mu} = \dfrac{(0.012 \cdot 200)^0}{0!}e^{-(0.012 \cdot 200)} \approx 0.091.
+	\end{equation*}
 \end{enumerate}

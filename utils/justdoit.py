@@ -1,7 +1,44 @@
 from typing import List
-from scipy.special import factorial
 import numpy as np
 import math
+import scipy.stats as stats
+
+def fatorial(n: np.ndarray) -> np.ndarray:
+    """
+    Calcula o fatorial de um número ou de um array de números 
+    usando aritmética exata de inteiros.
+    
+    Definição:
+    O fatorial de um número inteiro não negativo 'n' é o produto de 
+    todos os inteiros positivos menores ou iguais a 'n':
+    
+        n! = n * (n - 1) * (n - 2) * ... * 1
+
+    Se 'n' é 0, então n! = 1 por definição.
+    
+    Parâmetros
+    ----------
+    n : int ou np.ndarray de ints
+        Valores de entrada. Se 'n' < 0, o valor de retorno é 0 para 
+        esse elemento.
+    
+    Retorna
+    -------
+    fatorial : int ou np.ndarray de ints
+        Fatorial de 'n', como inteiro ou array de inteiros.
+    """
+    n = np.asarray(n)
+    resultado = np.zeros_like(n, dtype=object)
+    
+    for i, valor in np.ndenumerate(n):
+        if valor < 0:
+            resultado[i] = 0
+        else:
+            resultado[i] = math.factorial(valor)
+
+    if resultado.size == 1:
+        return resultado.item()
+    return resultado
 
 def media_amostral(dados: List[float]) -> float:
     """
@@ -188,4 +225,28 @@ def poisson_fmp(n: np.ndarray, mu: float) -> np.ndarray:
     np.ndarray
         O valor da FMP para cada valor no conjunto n dado.    
     """
-    return (mu ** n / factorial(n)) * np.exp(-mu) 
+    if mu >= 12:  # Para mu >> 0, o código fica inviável (devido o fatorial)
+        return stats.poisson.pmf(n, mu)
+
+    return (mu ** n / fatorial(n)) * np.exp(-mu) 
+
+def poisson_cdf(k: int, mu: float) -> float:
+    """
+    Calcula a função de distribuição acumulada (CDF) da distribuição de Poisson.
+
+    Parameters
+    ----------
+    k : int
+        Valor inteiro até onde a soma deve ser calculada.
+    mu : float
+        Média da distribuição de Poisson.
+
+    Returns
+    -------
+    float
+        Valor da CDF para k e mu dados.
+    """
+    p_total = 0.0
+    for x in range(k + 1):
+        p_total += poisson_fmp(x, mu)
+    return p_total
