@@ -1,0 +1,94 @@
+\chapter{A Distribuição das Funções de Variáveis Aleatórias}
+
+\section{Funções de Variáveis Aleatórias}
+
+Os experimentos são tipicamente projetados para direcionar uma ou mais quantidades que podem ser medidas efetivamente com o equipamento disponível. Um exemplo é a medição de partículas de alta energia com um contador \textit{Geiger}, que registra a incidência de partículas que alcançam o detector. Com base no conhecimento dos parâmetros do equipamento e das características da fonte radioativa, podemos modelar o número de eventos detectados por um intervalo de tempo como uma distribuição de Poisson, cuja média inicialmente é desconhecida. O contador Geiger, no entanto, não discrimina exclusivamente as partículas oriundas da fonte radioativa; ele também capta outras partículas, o chamado ``ruído de fundo''. Para quantificar apenas o ruído de fundo, podemos realizar um experimento controlado removendo a fonte e medindo as contagens que são exclusivamente ambientais. Isso nos fornece duas variáveis aleatórias distintas: uma para o total de contagens (fonte mais fundo) e outra apenas para o ruído de fundo, cada uma seguindo sua própria distribuição de probabilidade.
+
+A inferência sobre a taxa de partículas originadas exclusivamente pela fonte depende das variáveis medidas. Em experimentos ideais, a distribuição probabilística da variável de interesse pode ser derivada das distribuições das variáveis medidas, facilitando uma estimativa mais precisa dos parâmetros da distribuição. Por exemplo, enquanto a diferença entre duas variáveis Poisson não segue uma distribuição Poisson no experimento com o contador Geiger, a diferença entre duas variáveis normalmente distribuídas retém a propriedade de normalidade.
+
+O estudo da distribuição das funções de variáveis aleatórias é um tópico complexo que é coberto exaustivamente em livros sobre teoria da probabilidade, como \citet{ross2019introduction}. Este capítulo aborda tópicos e métodos selecionados que são aplicáveis a situações típicas encontradas pelo analista de dados. Há também casos em que não é possível ou prático buscar a distribuição de probabilidade de uma variável aleatória de interesse. Nesses casos, ainda é possível seguir métodos aproximados para estudar sua média e variância. Alguns desses são introduzidos neste capítulo e depois desenvolvidos completamente no capítulo seguinte.
+
+\section{Combinação Linear de Variáveis Aleatórias}
+
+As variáveis experimentais muitas vezes estão relacionadas por uma relação linear simples. Antes de estudar a distribuição de funções mais complexas de variáveis aleatórias, é útil entender o comportamento da combinação linear de variáveis. A combinação linear de $N$ variáveis aleatórias $X_i$ é uma variável $Y$ definida por
+\begin{equation}\label{4.1}
+ Y = \sum_{i=1}^{N} a_i X_i,
+\end{equation}
+onde $a_i$ são coeficientes constantes. Um exemplo típico é o sinal detectado por um instrumento, que pode ser pensado como a soma do sinal intrínseco da fonte mais o ruído de fundo. As distribuições dos sinais de fundo e da fonte influenciarão as propriedades do sinal total detectado, e, portanto, é importante entender as propriedades estatísticas dessa relação para caracterizar o sinal da fonte.
+
+\subsection{Fórmulas da Média e da Variância}
+
+A média da combinação linear de variáveis aleatórias pode ser facilmente calculada usando as propriedades da expectância. O valor esperado de uma variável $Y$ definida de acordo com a \autoref{4.1} é:
+\begin{equation}
+\mathbb{E}[Y] = \sum_{i=1}^{N} a_i \mu_i,
+\end{equation}
+onde $ \mu_i $ é a média ou valor esperado de $ X_i $. Esta propriedade decorre da linearidade do operador expectância, e é equivalente a uma média ponderada onde os pesos são dados pelos coeficientes $ a_i $. Esta propriedade linear da média se aplica independentemente das variáveis aleatórias $ X_i $ serem independentes umas das outras, como mostrado na \autoref{sec:2.4.1}.
+
+No caso da variância, a situação é mais complexa. A variância de $ Y $ pode ser calculada da seguinte maneira:
+\begin{align*}
+\text{Var}(Y) = \mathbb{E}[(Y - \mathbb{E}[Y])^2] = \mathbb{E}\left[\left(\sum_{i=1}^N a_i X_i - \sum_{i=1}^N a_i \mu_i \right)^2\right] = \mathbb{E}\left[\left(\sum_{i=1}^N a_i (X_i - \mu_i)\right)^2\right].
+\end{align*}
+Ao expandir o quadrado,
+\begin{align*}
+\text{Var}(Y) = \mathbb{E}\left[\sum_{i=1}^N a_i (X_i - \mu_i) \sum_{j=1}^N a_j (X_j - \mu_j)\right] = \sum_{i=1}^N \sum_{j=1}^N a_i a_j \mathbb{E}[(X_i - \mu_i)(X_j - \mu_j)],
+\end{align*}
+precisamos considerar os dois casos: quando $i = j$ e quando $i \neq j$. Assim,
+\begin{align*}
+\mathbb{E}[(X_i - \mu_i)(X_i - \mu_i)] &= \mathbb{E}[(X_i - \mu_i)^2] = \text{Var}(X_i), &\qquad \text{quando $i=j$}; \\
+\mathbb{E}[(X_i - \mu_i)(X_j - \mu_j)] &= \text{Cov}(X_i, X_j), &\qquad \text{quando $i\neq j$}.
+\end{align*}
+Com isso, podemos separar a soma dentro dessas duas partes:
+\begin{align*}
+\text{Var}(Y) = \sum_{i=1}^N a_i^2 \mathbb{E}[(X_i - \mu_i)^2] + \sum_{i=1}^N \sum_{j \neq i}^N a_i a_j \mathbb{E}[(X_i - \mu_i)(X_j - \mu_j)].
+\end{align*}
+Reescrevendo o segundo somatório para somar apenas $j > i$ e levando em consideração a natureza simétrica da covariância,
+\begin{equation*}
+\text{Var}(Y) = \sum_{i=1}^{N} a_i^2 \mathbb{E}[(X_i - \mu_i)^2] + 2 \sum_{i=1}^{N} \sum_{j>i}^{N} a_i a_j \mathbb{E}[(X_i - \mu_i)(X_j - \mu_j)],
+\end{equation*}
+onde os termos de produto cruzado são proporcionais à covariância entre as variáveis. 
+
+A fórmula geral para a variância da soma linear de variáveis é, portanto:
+\begin{equation}\label{4.3}
+\text{Var}(Y) = \sum_{i=1}^{N} a_i^2 \text{Var}(X_i) + 2 \sum_{i=1}^{N} \sum_{j=i+1}^{N} a_i a_j \text{Cov}(X_i, X_j).
+\end{equation}
+
+A \autoref{4.3} mostra que as variâncias se somam linearmente apenas para variáveis que são mutuamente não correlacionadas, ou seja, $ \sigma_{ij}^2 = 0 $, mas não em geral. O exemplo a seguir ilustra a importância de uma covariância diferente de zero entre duas variáveis e seu efeito na variância da soma.
+
+\begin{exemplo}{}{}
+Considere duas variáveis aleatórias $ X $ e $ Y $ e sua soma $ Z = X + Y $. Se $ X $ e $ Y $ são perfeitamente anticorrelacionadas, $ \text{Cor}(X, Y) = -1 $ significa que $ \sigma_{xy}^2 = -\sigma_x \sigma_y $ (recorde da \autoref{2.20}). A média de $ Z $ é simplesmente a soma das duas médias, $ \mu_z = \mu_x + \mu_y $, independentemente do valor da correlação. A variância, no entanto, é:
+\begin{equation*}
+\sigma_z^2 = \sigma_x^2 + \sigma_y^2 + 2 \text{Cov}(X, Y) = \sigma_x^2 + \sigma_y^2 - 2 \sigma_x \sigma_y = (\sigma_x - \sigma_y)^2 = 0,
+\end{equation*}
+o que significa que a soma das duas variáveis aleatórias que são perfeitamente anticorrelacionadas não é mais uma variável aleatória, mas é sempre igual à sua média. Esta situação é improvável de ocorrer em experimentos, mas mostra como uma correlação negativa é capaz de reduzir a variância da soma de duas variáveis. Uma situação oposta ocorre para a soma de duas variáveis que têm uma correlação positiva perfeita. Neste caso, as expectâncias continuam a se somar linearmente, mas a variância torna-se:
+\begin{equation*}
+\sigma_z^2 = (\sigma_x + \sigma_y)^2,
+\end{equation*}
+que é sempre maior que $ \sigma_x^2 + \sigma_y^2 $. Por exemplo, se $ X = Y $, então a variância torna-se quatro vezes a variância de $ X $, o que é simplesmente entendido com a propriedade $ \text{Var}(aX) = a^2 \text{Var}(X) $.
+\end{exemplo}
+
+\subsection{Medições Independentes e o Fator $1/\sqrt{N}$}
+
+Variáveis independentes e, portanto, não correlacionadas desempenham um papel especial na probabilidade e estatística. Muitos experimentos são projetados para fornecer $ N $ medições independentes de uma variável $ X $. As medições resultantes são variáveis $ X_i $ que são ditas \textbf{independentes e identicamente distribuídas} (IID). Com $ N $ medições independentes $ X_i $ da mesma variável $ X $, todas com média igual $ \mu $ e variância $ \sigma^2 $, frequentemente se tem interesse em calcular a variância da média amostral. Usando propriedades básicas da expectância e das propriedades de variáveis não correlacionadas, a variância da média amostral é calculada como:
+\begin{equation*}
+\text{Var}\left(s\right) = \dfrac{1}{N^2} \sum_{i=1}^{N} \text{Var}(X_i) = \dfrac{1}{N^2} \left( N \sigma^2\right) = \dfrac{\sigma^2}{N},
+\end{equation*}
+mostrando uma redução da variância da média amostral por um fator de $ N $, em comparação com a variância da população. Um resultado equivalente pode ser obtido definindo a \textbf{incerteza relativa} de uma variável como a razão entre o desvio padrão e a média. Para a média amostral de $ N $ medições, a incerteza relativa é, portanto:
+\begin{equation*}
+\dfrac{\sigma_s}{\mu} = \dfrac{\sigma}{\mu} \cdot \dfrac{1}{\sqrt{N}}.
+\end{equation*}
+A interpretação dessas duas equações é simples: espera-se uma variância menor entre as medições da média amostral de $ N $ medições do que entre medições individuais, uma vez que as flutuações estatísticas das medições individuais são reduzidas com o aumento do tamanho da amostra da média amostral. Esse fator de $ 1/\sqrt{N} $ é essencial para entender a necessidade de repetir experimentos a fim de alcançar um objetivo desejado na incerteza relativa de uma variável de interesse. É importante enfatizar que esses resultados se aplicam apenas a medições independentes.
+
+\section{Função Geratriz de Momentos}
+
+A média e a variância fornecem apenas informações parciais sobre a variável aleatória. A \textbf{função geratriz de momentos} é uma ferramenta matemática conveniente para determinar a função de distribuição de variáveis aleatórias e seus momentos, sendo também instrumental na prova do \textbf{teorema central do limite}, um dos resultados-chave da estatística. A função geratriz de momentos de uma variável aleatória $X$ é definida como:
+\begin{equation}
+M(t) = \mathbb{E}[\exp{\left(tX\right)}],
+\end{equation}
+e possui a propriedade de que todos os momentos podem ser derivados dela, desde que existam e sejam finitos. A função geratriz de momentos introduz uma variável determinística $t$ que é usada para o cálculo dos momentos. Assumindo uma variável aleatória contínua com função de distribuição de probabilidade $ f(x) $, a função geratriz de momentos de $ X $ pode ser escrita como:
+\begin{equation*}
+M(t) = \int_{-\infty}^{+\infty} \exp{\left(tX\right)} f(x)\,dx = 1 + t\mu_1 + \dfrac{t^2}{2!}\mu_2 + \ldots,
+\end{equation*}
+onde $ \mu_n $ representa o momento de ordem $ n $ de $ X $. Os momentos podem, portanto, ser obtidos como derivadas parciais da função geratriz de momentos avaliadas em $ t = 0 $:
+\begin{equation}
+\mu_r = \left. \dfrac{\partial^r M(t)}{\partial t^r} \right|_{t=0}.
+\end{equation}

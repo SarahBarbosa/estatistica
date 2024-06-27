@@ -1,0 +1,86 @@
+\theoremstyle{plain}
+\newtcbtheorem[auto counter, number within=chapter]{exemplo}{\strut Exemplo}{
+    enhanced jigsaw,
+    breakable,
+    sharp corners,
+    boxrule=0pt,
+    toprule=1pt,bottomrule=1pt,
+    left=0.2cm,right=0.2cm,top=0.2cm,
+    colframe=chromeyellow!75,
+    colback=white,
+    colbacktitle=chromeyellow!75,
+    coltitle=white,
+    before skip=15pt plus 2pt,
+    after skip=15pt plus 2pt 
+}{th}
+
+\newtcbtheorem[number within=chapter]{teo}{\strut Teorema}{
+    enhanced,
+    colframe=chromeyellow!75,
+    colback=white,
+    colbacktitle=chromeyellow!75,
+    coltitle=white,
+    boxed title style={},
+    attach boxed title to top left={xshift=5mm,yshift*=-\tcboxedtitleheight/2},
+    before skip=25pt plus 2pt,
+    after skip=15pt plus 2pt
+}{th}
+
+\newtcbtheorem[number within=chapter]{df}{\strut Definição}{
+    enhanced,
+    colframe=chromeyellow!75,
+    colback=white,
+    colbacktitle=chromeyellow!75,
+    coltitle=white,
+    boxed title style={},
+    attach boxed title to top left={xshift=5mm,yshift*=-\tcboxedtitleheight/2},
+    before skip=25pt plus 2pt,
+    after skip=15pt plus 2pt
+}{th}
+
+\newtcbtheorem[number within=chapter]{prop}{\strut Proposição}{
+    enhanced,
+    colframe=chromeyellow!75,
+    colback=white,
+    colbacktitle=chromeyellow!75,
+    coltitle=white,
+    boxed title style={},
+    attach boxed title to top left={xshift=5mm,yshift*=-\tcboxedtitleheight/2},
+    before skip=25pt plus 2pt,
+    after skip=15pt plus 2pt
+}{th}
+
+\newtcbtheorem[number within=chapter]{coro}{\strut Corolário}{
+    enhanced,
+    colframe=chromeyellow!75,
+    colback=white,
+    colbacktitle=chromeyellow!75,
+    coltitle=white,
+    boxed title style={},
+    attach boxed title to top left={xshift=5mm,yshift*=-\tcboxedtitleheight/2},
+    before skip=25pt plus 2pt,
+    after skip=15pt plus 2pt
+}{th}
+
+\newtcbtheorem[number within=chapter]{lema}{\strut Lema}{
+    enhanced,
+    colframe=chromeyellow!75,
+    colback=white,
+    colbacktitle=chromeyellow!75,
+    coltitle=white,
+    boxed title style={},
+    attach boxed title to top left={xshift=5mm,yshift*=-\tcboxedtitleheight/2},
+    before skip=25pt plus 2pt,
+    after skip=15pt plus 2pt
+}{th}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Exemplo}
+
+\newtheorem{problema}{Problema}
+\makeatletter
+\@addtoreset{problema}{section}
+\makeatother
+
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\code}[1]{\colorbox{light-gray}{\small{\texttt{#1}}}}

@@ -225,7 +225,7 @@ def poisson_fmp(n: np.ndarray, mu: float) -> np.ndarray:
     np.ndarray
         O valor da FMP para cada valor no conjunto n dado.    
     """
-    if mu >= 12:  # Para mu >> 0, o código fica inviável (devido o fatorial)
+    if mu >= 12:  # Para mu >> 0, o código manual fica inviável (devido o fatorial)
         return stats.poisson.pmf(n, mu)
 
     return (mu ** n / fatorial(n)) * np.exp(-mu) 

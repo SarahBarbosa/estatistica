@@ -94,7 +94,7 @@ Esta nova equação é formalmente idêntica à \eqref{2.8} exceto pelo uso de l
 \end{equation*}
 A média amostral tem a mesma expectância que a variável populacional $X$, e portanto $\overline{X}$ é considerado um \textbf{estimador não tendencioso} de $X$. Esta é uma propriedade muito desejável, dado que a média amostral foi projetada exatamente com o propósito de estimar a variável populacional $X$ com suas medidas. Também se espera que, à medida que o número de medidas $N$ aumenta, a média amostral se aproxime cada vez mais da média populacional com maior precisão. Isso é mostrado na seção seguinte.
 
-\subsection{A Lei dos Grandes Números}
+\subsection{A Lei dos Grandes Números}\label{sec:2.3.2}
 
 A \textbf{lei dos grandes números} afirma que a média amostral converge para a média populacional conforme o tamanho da amostra aumenta, e é um dos teoremas fundamentais da probabilidade. Considere $N$ variáveis aleatórias $X_i$ que são identicamente distribuídas com $\mu$ sendo a média comum delas. A lei pode ser enunciada como:
 \begin{equation}\label{2.9}
@@ -142,7 +142,7 @@ uma nova variável aleatória que se destina a estimar a variância populacional
 
 É comum medir mais de uma variável aleatória em um experimento dado. As variáveis frequentemente estão relacionadas entre si, e, portanto, é necessário definir uma medida de como uma variável afeta a medição das outras. Considere a medição tanto do comprimento de um lado de um quadrado quanto de sua área; é claro que as duas quantidades estão relacionadas de tal forma que a mudança de uma quantidade afeta a outra da mesma maneira, ou seja, uma mudança positiva no comprimento do lado resulta em uma mudança positiva na área. Nesse caso, o comprimento e a área serão ditos ter uma correlação positiva. Esta seção introduz conceitos-chave para estudar duas ou mais variáveis aleatórias simultaneamente.
 
-\subsection{Distribuição de Probabilidade Conjunta e Momentos de Duas Variáveis Aleatórias}
+\subsection{Distribuição de Probabilidade Conjunta e Momentos de Duas Variáveis Aleatórias}\label{sec:2.4.1}
 
 Quando duas variáveis são medidas ao mesmo tempo, deseja-se saber a probabilidade de um par de medidas dado para as duas variáveis. Essa informação é fornecida pela \textbf{função de distribuição de probabilidade conjunta}, indicada como $h(x, y)$, onde $h(x, y)\,dxdy$ é a probabilidade de que as duas variáveis $X$ e $Y$ estejam em um intervalo bidimensional de tamanho $dxdy$ em torno do valor $(x, y)$. Essa função bidimensional pode ser representada experimentalmente por meio de sua distribuição amostral, da mesma forma que as distribuições unidimensionais.
 
@@ -195,7 +195,7 @@ A \textbf{covariância amostral} para uma coleção de $N$ pares de medidas é c
 usando uma equação similar à variância amostral. É possível mostrar que o denominador $(N - 1)$ é necessário para garantir que a covariância amostral seja um estimador não tendencioso da covariância populacional. Essa derivação é fornecida na \autoref{sec:2-6}.
 
 A \textbf{correlação} é simplesmente uma versão normalizada da covariância:
-\begin{equation}
+\begin{equation}\label{2.20}
 \text{Cor}(X,Y) = \dfrac{\text{Cov}(X,Y)}{\sqrt{\text{Var}(X)\text{Var}(Y)}} = \dfrac{\sigma_{xy}^2}{\sigma_x\sigma_y},
 \end{equation}
 e pode ser indicada como $\text{Cor}(X,Y) = \rho$. A \textbf{desigualdade de Cauchy-Schwarz} é frequentemente declarada como:

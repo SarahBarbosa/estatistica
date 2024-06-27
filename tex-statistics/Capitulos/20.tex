@@ -1,0 +1,76 @@
+\chapter{Métodos de Monte Carlo e Reamostragem}
+
+\section{O que é uma Análise de Monte Carlo?}
+
+O termo \textbf{Monte Carlo} vem do nome de uma localidade no Principado de Mônaco, famosa por seus resorts e cassinos. Em estatística e análise de dados, Monte Carlo é usado para descrever métodos numéricos computacionais que geralmente envolvem o uso de números aleatórios. Mesmo que os computadores eletrônicos só tenham se tornado disponíveis na segunda metade do século XX, a ideia de repetir um experimento para determinar uma distribuição amostral é fundamental na teoria da probabilidade e estatística. 
+
+Um experimento famoso que ilustra o uso de métodos de Monte Carlo é o \textbf{lançamento de moeda de Buffon}, nomeado em homenagem ao cientista do século XVIII, G.L. Le Clerc, conde de Buffon. Buffon propôs um experimento simples onde uma moeda é lançada em um piso coberto com ladrilhos quadrados, com o objetivo de calcular a probabilidade de que a moeda cruze as fissuras entre os ladrilhos. Uma vez especificados os tamanhos da moeda e dos ladrilhos, a probabilidade pode ser calculada analiticamente usando argumentos geométricos simples, e confirmada experimentalmente repetindo o experimento várias vezes. Alternativamente, pode-se realizar uma simulação numérica do experimento, randomizando as coordenadas de pouso da moeda, e a cada passo da simulação avaliar se a moeda cruza as fissuras. Essas repetições simuladas do experimento são então usadas para determinar a probabilidade de interesse, como se o experimento tivesse sido realizado na realidade.
+
+A origem da expressão ``Monte Carlo'' para significar tais cálculos numéricos é geralmente atribuída aos cientistas dos \textit{Los Alamos Laboratories}, N. Metropolis e S. Ulam, que desenvolveram essa técnica após a Segunda Guerra Mundial \citep{metropolis1949}, e que também atribuíram esse termo ao tio de Ulam, que pedia dinheiro emprestado de parentes porque ele ``simplesmente tinha que ir a Monte Carlo'' \citep{metropolis1953}. 
+
+Métodos tradicionais de Monte Carlo incluem a integração numérica de funções que podem ser representadas graficamente, mas que não possuem uma solução analítica simples. Outro problema que se beneficia do uso de números aleatórios é a estimativa de incertezas nos parâmetros de melhor ajuste de modelos analíticos usados para ajustar dados, em casos onde uma solução analítica para o erro nos parâmetros não está disponível. Em muitos desses casos, os métodos bootstrap ou jackknife podem ser usados para obter estimativas confiáveis dessas incertezas. Entre muitas outras aplicações, o método de Monte Carlo via Cadeias de Markov se destaca como uma classe de métodos de Monte Carlo que é agora comum em muitos campos de pesquisa. A teoria das cadeias de Markov data do início do século XX, mas apenas recentemente encontrou uso generalizado como cadeias de Markov de Monte Carlo devido ao poder computacional necessário para implementar o método.
+
+\section{Integração Tradicional de Monte Carlo}
+
+Uma tarefa numérica comum é o cálculo da integral de uma função $ g(x) $, para a qual uma solução analítica pode não estar disponível ou ser muito complicada para calcular exatamente:
+\begin{equation}\label{20.1}
+I = \int_A g(x) \, dx.
+\end{equation}
+O objetivo é derivar um método para aproximar essa integral sorteando aleatoriamente $ N $ amostras do suporte\footnote{O \textbf{suporte de uma função} é o menor subconjunto fechado do domínio onde a função não é nula.} $ A $. Para simplificar, assume-se que o suporte da função é o intervalo entre $ a $ e $ b $. O método começa com o sorteio de $ N $ amostras de uma distribuição uniforme entre esses dois valores, assumindo que a variável $ X $ tem uma função de distribuição de probabilidade $ f(x) $ dada por:
+\begin{equation}
+f(x) = \begin{cases} 
+	\frac{1}{b - a} & \text{se } a \leq x \leq b \\
+	0 & \text{caso contrário}.
+\end{cases}
+\end{equation}
+Lembrando que para uma variável aleatória $ X $ com distribuição contínua $ f(x) $, a expectância é definida de acordo com a \autoref{2.7},
+\begin{equation*}
+\mathbb{E}[X] = \int_{-\infty}^{\infty} x f(x) \, dx,
+\end{equation*}
+e pode ser estimada via sua média amostral (\autoref{2.8}):
+\begin{equation*}
+\mathbb{E}[X] \simeq \dfrac{1}{N} \sum_{i=1}^N x_i,
+\end{equation*}
+usando $ N $ amostras independentes da variável. Para a finalidade de calcular a integral \eqref{20.1}, a expectância de uma função $ g(x) $ da variável aleatória $ X $ é:
+\begin{equation*}
+	\mathbb{E}[g(x)] = \int_{-\infty}^{\infty} g(x) f(x) \, dx,
+\end{equation*}
+que pode ser estimada usando a lei dos grandes números (\autoref{sec:2.3.2}) como:
+\begin{equation}
+	\mathbb{E}[g(x)] \simeq \dfrac{1}{N} \sum_{i=1}^N g(x_i).
+\end{equation}
+No limite de um grande número de medições, essas equações podem ser usadas para aproximar a integral de interesse como uma simples soma:
+\begin{equation}\label{20.4}
+I \approx (b - a) \cdot \mathbb{E}[g(x)] \simeq \dfrac{b - a}{N} \sum_{i=1}^N g(x_i).
+\end{equation}
+A \autoref{20.4} pode ser implementada sorteando $ N $ amostras uniformes $ x_i $ do suporte, calculando as amostras $ g(x_i) $ e a soma. Este é o método básico de \textbf{integração de Monte Carlo}, que pode ser facilmente implementado usando um gerador de números aleatórios para a distribuição uniforme. O método pode ser generalizado para mais de uma dimensão. Se o suporte $ A $ tem um volume $n$-dimensional $ V $, então a integração de uma função $n$-dimensional $ g(x) $ é dada pela seguinte soma:
+\begin{equation}\label{20.5}
+I \simeq \dfrac{V}{N} \sum_{i=1}^N g(x_i).
+\end{equation}
+É claro que a precisão no cálculo da integral depende do número de amostras sorteadas. O erro deste método de integração pode ser estimado usando a seguinte interpretação da \autoref{20.4} ou da \autoref{20.5}. Como $ I $ é estimado via a média amostral da função $ g(x) $, a variância de $ I $ é proporcional à variância da média amostral de $ g(x) $, que pode ser estimada via:
+\begin{equation*}
+s_{\overline{g}}^2 = \dfrac{s_g^2}{N} = \dfrac{1}{N}\left[\dfrac{1}{N-1} \sum_{i=1}^N(g(x_i) - \overline{g})^2\right].
+\end{equation*}
+O termo entre colchetes é a variância amostral da função $ g(x) $, que é uma estimativa não viesada da variância da população e é calculada imediatamente a partir das $ N $ amostras. O fator adicional de $ 1/N $ leva em conta que a variável de interesse é a média amostral de $ N $ medições. De acordo com a \autoref{20.5}, a variância amostral de $ I $ é então estimada como:
+\begin{equation}
+s_I^2 = V \cdot s_{\overline{g}}^2,
+\end{equation}
+com o erro padrão estimado $ s_I $ diminuindo com o tamanho da amostra como a raiz quadrada de $ N $.
+
+\begin{exemplo}{}{}
+O número $\pi$ é geralmente definido como a razão entre a circunferência e o diâmetro de um círculo, ou como a razão entre a área e o quadrado do seu raio. Por exemplo, um círculo de raio unitário no plano cartesiano é descrito pela equação $x^2 + y^2 = 1$. Para calcular a área de um quarto desse círculo, consideramos apenas o primeiro quadrante, onde tanto $x$ quanto $y$ são não-negativos. Essa área pode ser encontrada integrando a função $y = g(x) = \sqrt{1 - x^2}$ de $0$ a $1$:
+\begin{equation}\label{20.7}
+I = \int_0^1 \sqrt{1 - x^2}\, dx = \dfrac{\pi}{4},
+\end{equation}
+Esta integral pode ser calculada com um método simples de Monte Carlo, sorteando $N$ amostras $x_i$ de uma distribuição uniforme entre 0 e 1 (o suporte da integral, onde $f(x)$ aqui é 1 quando $0 \leq x \leq 1$ e $0$ o contrário), resultando em uma estimativa do número como
+\begin{equation*}
+\pi \simeq 4 \cdot \dfrac{1}{N} \sum_{i=1}^N  g(x_i),
+\end{equation*}
+onde $g(x_i) = \sqrt{1 - x_i^2}$ é uma amostra aleatória para a função integrando. A variância da estimativa é aproximadamente
+\begin{equation*}
+s_\pi^2 =  \dfrac{4}{N} \sum_{i=1}^N \dfrac{\left(g(x_i) - \overline{g}\right)^2}{N-1}
+\end{equation*}
+Por exemplo, uma amostra de $N = 100$ números aleatórios produz uma estimativa de $3.263 \pm 0.080$, uma amostra de $N = 1000$ produz $3.192 \pm 0.028$, ou uma amostra de $N = 10000$ produz $3.1397 \pm 0.0090$. Claro, diferentes amostras produzirão diferentes estimativas.
+
+Note que a integral em \eqref{20.7} pode ser calculada analiticamente com a substituição $x = \cos(\theta)$. No entanto, tal solução analítica não resolve o problema de encontrar o valor numérico de $\pi$, que pode ser realizado com a simples integração de Monte Carlo apresentada neste exemplo.
+\end{exemplo}
