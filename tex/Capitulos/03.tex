@@ -194,9 +194,9 @@ onde,
 B_2 = -\dfrac{1}{N - \tilde{n}} - \dfrac{1}{\tilde{n}} = -\dfrac{1}{N(1 - p)} - \dfrac{1}{Np} = -\dfrac{1}{Npq},
 \end{equation*}
 em que usamos o fato que $p + q = 1$. Finalmente, a constante de normalização $P(\tilde{n})$ pode ser calculada fazendo uso da integral
-\begin{equation*}
+\begin{equation}\label{3.10}
 \int_{-\infty}^{\infty} e^{-ax^2} dx = \sqrt{\dfrac{\pi}{a}}.
-\end{equation*}
+\end{equation}
 impondo a condição de normalização da função de distribuição de probabilidade,
 \begin{equation*}
 P_N(\tilde{n}) \int_{-\infty}^{\infty} \exp{\left(-\dfrac{|B_2| \Delta n^2}{2}\right)}\,d\Delta n = P_N(\tilde{n}) \sqrt{\dfrac{2\pi}{|B_2|}} = 1, 
@@ -297,9 +297,9 @@ Como $pN$ é a média da distribuição, a aproximação torna-se:
 P_N(n) = \dfrac{\mu^n}{n!}e^{- \mu}.
 \end{equation}
 conhecida como \textbf{distribuição de Poisson}. Esta função descreve a probabilidade de obter $n$ resultados positivos, ou contagens, quando o número esperado de resultados é $\mu$. Pode-se ver imediatamente que a distribuição está devidamente normalizada, já que:
-\begin{equation*}
+\begin{equation}\label{3.17}
 \sum_{n=0}^{\infty} \dfrac{\mu^n}{n!} = e^\mu. 
-\end{equation*}
+\end{equation}
 
 Uma característica fundamental desta distribuição é que ela é descrita por apenas um parâmetro, a média $\mu$, em contraste com a distribuição Gaussiana que tinha dois parâmetros. Isso não significa que a distribuição de Poisson não tenha variância -- nesse caso, não seria uma variável aleatória -- mas que a variância pode ser escrita como uma função da média, como será mostrado a seguir.
 

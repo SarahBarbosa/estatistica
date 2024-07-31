@@ -124,16 +124,16 @@ O conhecimento da sequência cara-coroa-cara-coroa de fato implica a certeza de 
 		\text{Var}(\overline{x}) = \left(\dfrac{1}{N}\right)^2\left(\sum_{i=1}^{N} \sigma^2\right) = \left(\dfrac{1}{N}\right)^2 \left(N\sigma^2\right) = \dfrac{\sigma^2}{N}.
 	\end{equation*}
 	
-	\item Utilizando os conjuntos de dados para o Tubo 1 e o Tubo 2 (disponíveis em \mintinline{python}|../data/statistics/thomson1.dat| e \mintinline{python}|../data/statistics/thomson2.dat|, respectivamente), podemos calcular a média amostral (\autoref{2.8}), variância (\autoref{2.14}), covariância (\autoref{2.19}) e coeficiente de correlação (\autoref{2.22}). As fórmulas correspondentes foram implementadas em Python e podem ser encontradas em \mintinline{python}|../utils/justdoit.py|. Os resultados obtidos após a aplicação dessas fórmulas são os seguintes:
+	\item Utilizando os conjuntos de dados para o Tubo 1 e o Tubo 2 (disponíveis em \mintinline{python}|../data/thomson1.dat| e \mintinline{python}|../data/thomson2.dat|, respectivamente), podemos calcular a média amostral (\autoref{2.8}), variância (\autoref{2.14}), covariância (\autoref{2.19}) e coeficiente de correlação (\autoref{2.22}). As fórmulas correspondentes foram implementadas em Python usando NumPy e SciPy`. Os resultados obtidos após a aplicação dessas fórmulas são os seguintes:
 	
 	\begin{itemize}
 		\item Tubo 1:
 		\begin{itemize}
-			\item Média de $W/Q$: 13.3
-			\item Variância de $W/Q$: 71.5
-			\item Média de $I$: 312.9
-			\item Variância de $I$: 8715.7
-			\item Covariância entre $W/Q$ e $I$: 759.1
+			\item Média de $W/Q$: 13.28
+			\item Variância de $W/Q$: 71.51
+			\item Média de $I$: 312.92
+			\item Variância de $I$: 8715.72
+			\item Covariância entre $W/Q$ e $I$: 759.12
 			\item Coeficiente de correlação entre $W/Q$ e $I$: 0.96
 		\end{itemize}
 		
@@ -141,14 +141,14 @@ O conhecimento da sequência cara-coroa-cara-coroa de fato implica a certeza de 
 		\begin{itemize}
 			\item Média de $W/Q$: 2.92
 			\item Variância de $W/Q$: 0.67
-			\item Média de $I$: 174.3
-			\item Variância de $I$: 286.2
-			\item Covariância entre $W/Q$ e $I$: 13.2
+			\item Média de $I$: 174.27
+			\item Variância de $I$: 286.22
+			\item Covariância entre $W/Q$ e $I$: 13.15
 			\item Coeficiente de correlação entre $W/Q$ e $I$: 0.95
 		\end{itemize}
 	\end{itemize}
 	
-	Cabe ressaltar que, por conveniência, cada medição de $W/Q$ está faltando um fator de $10^{11}$. A aplicação das fórmulas correspondentes pode ser vista no Jupyter Notebook \mintinline{python}|../docs/notebooks/cap02.ipynb|.
+	Cabe ressaltar que, por conveniência, cada medição de $W/Q$ está faltando um fator de $10^{11}$. A aplicação das fórmulas correspondentes pode ser vista no Jupyter Notebook \mintinline{python}|../notebooks/cap02.ipynb|.
 	
 	\item Ao combinar todas as medições feitas no ar (14 medições), no hidrogênio (5) e no ácido carbônico (4), os resultados são os seguintes:
 	
@@ -158,9 +158,9 @@ O conhecimento da sequência cara-coroa-cara-coroa de fato implica a certeza de 
 	\item Ácido carbônico: $m/e = 0.43 \pm 0.07$.
 	\end{itemize}	
 	
-	Todas as medições estão dentro do desvio padrão umas das outras, e a afirmação é portanto verificada. As medições estão em unidades de $10^{-7}$. A aplicação das fórmulas correspondentes pode ser vista no Jupyter Notebook \mintinline{python}|../docs/notebooks/cap02.ipynb|.
+	Todas as medições estão dentro do desvio padrão umas das outras, e a afirmação é portanto verificada. As medições estão em unidades de $10^{-7}$. A aplicação das fórmulas correspondentes pode ser vista no Jupyter Notebook \mintinline{python}|../notebooks/cap02.ipynb|.
 	
-	\item A covariância amostral é calculada como $-0.33$ e o coeficiente de correlação amostral como $-0.14$. A aplicação das fórmulas correspondentes pode ser vista no Jupyter Notebook \mintinline{python}|../docs/notebooks/cap02.ipynb|. 
+	\item A covariância amostral é calculada como $-0.33$ e o coeficiente de correlação amostral como $-0.14$. A aplicação das fórmulas correspondentes pode ser vista no Jupyter Notebook \mintinline{python}|../notebooks/cap02.ipynb|. 
 \end{enumerate}
 
 \section*{Capítulo 3}
