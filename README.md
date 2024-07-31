@@ -1,3 +1,3 @@
-# Estatística e Análise de Dados Bayesiana
+# Estatística e Análise de Dados
 
 > Em construção 🚧
